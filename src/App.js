@@ -5,21 +5,35 @@ export default function App() {
 
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
-  const [countryName, setCountryName] = useState("India");
+  const [countryName, setCountryName] = useState("");
+
   const [locationSearchData, setLocationSearchData] = useState([]);
-  const [data, setData] = useState("");
+  const [weatherData, setWeatherData] = useState("");
+
   const [loading, setLoading] = useState(false);
-  const fetchGeocodingData = () =>
+
+  const fetchGeocodingData = () => {
+    setLoading(true);
     fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateName},${countryName}&limit=50&appid=${API_KEY}`
     )
       .then((res) => res.json())
-      .then((res) => {
-        if (res.length > 0) {
-          console.log(res);
-          setLocationSearchData(res);
-        } else throw new Error("Location not found");
-      });
+      .then((res) =>
+        Promise.all(
+          res.map((location) =>
+            fetch(
+              `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`
+            ).then((res) => res.json())
+          )
+        )
+      )
+      .then((bulk) => {
+        setLocationSearchData(bulk);
+        setLoading(false);
+      })
+      .catch((e) => console.error("Error fetching geocoding data"));
+  };
+
   const fetchWeathermapData = (lat, lon) => {
     setLoading(true);
     fetch(
@@ -27,17 +41,20 @@ export default function App() {
     )
       .then((res) => res.json())
       .then((res) => {
-        setData(res);
+        setWeatherData(res);
         setLoading(false);
       });
   };
-  const handleClickLocation = (name, state, country, lat, lon) => {
-    setCityName(name);
-    setStateName(state);
-    setCountryName(country);
-    fetchWeathermapData(lat, lon);
+
+  const handleClickLocation = (location) => {
+    setCityName(location.name);
+    // setStateName(location.state);
+    setCountryName(location.sys.country);
+    fetchWeathermapData(location.coord.lat, location.coord.lon);
   };
-  console.log(data);
+
+  console.log(locationSearchData);
+  console.log(weatherData);
   return (
     <>
       <div className="bg-slate-700 w-screen h-screen text-white flex">
@@ -46,7 +63,10 @@ export default function App() {
           <span>
             <input
               type="text"
-              onChange={(e) => setCityName(e.target.value)}
+              onChange={(e) => {
+                setCityName(e.target.value);
+                setCountryName("");
+              }}
               className="text-black w-auto h-auto"
               placeholder="City"
             />
@@ -56,20 +76,13 @@ export default function App() {
           </span>
 
           <div className="w-full h-auto flex flex-col">
-            {locationSearchData.map((location) => (
+            {locationSearchData.map((location, index) => (
               <button
+                key={index}
                 className="border"
-                onClick={() =>
-                  handleClickLocation(
-                    location.name,
-                    location.state,
-                    location.country,
-                    location.lat,
-                    location.lon
-                  )
-                }
+                onClick={() => handleClickLocation(location)}
               >
-                {location.name}, {location.state}, {location.country}
+                {location.name}, {location.sys.country}
               </button>
             ))}
           </div>
@@ -80,14 +93,14 @@ export default function App() {
           {/* details of current location */}
           <div>
             {loading && <p>Loading...</p>}
-            {data.coord ? (
+            {weatherData.coord ? (
               <span className="flex flex-col">
                 <p>
-                  {data.name}, {data.sys.country}
+                  {weatherData.name}, {weatherData.sys.country}
                 </p>
                 <p>Coordinates</p>
-                <p>Latitude: {data.coord.lat}</p>
-                <p>Longitude: {data.coord.lon}</p>
+                <p>Latitude: {weatherData.coord.lat}</p>
+                <p>Longitude: {weatherData.coord.lon}</p>
               </span>
             ) : (
               <p>Search for a location</p>
