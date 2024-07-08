@@ -4,6 +4,8 @@ import { GiSun } from "react-icons/gi";
 import SearchPanel from "./SearchPanel";
 import CurrentLocationDetails from "./CurrentLocationDetails";
 import FiveDayForecastDetails from "./FiveDayForecastDetails";
+import { FaLocationPin } from "react-icons/fa6";
+import { MdLocationPin } from "react-icons/md";
 
 export default function App() {
   const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
@@ -118,7 +120,7 @@ export default function App() {
         </span>
 
         {/* middle display panels */}
-        <div className="flex flex-col w-3/4 h-1/2 ">
+        <div className="flex flex-col w-3/4 h-1/2 ml-2 pr-2 py-2">
           {/* details of 5 day forecast */}
           <FiveDayForecastDetails
             bulkWeatherData={bulkWeatherData}
@@ -128,7 +130,24 @@ export default function App() {
           {/* will do later */}
         </div>
         {/* right SOMETHING panel */}
-        <div className="fixed top-0 right-0 w-1/4 h-full "></div>
+        <div className="fixed top-0 right-0 w-1/4 h-full ">
+          {/* AQI details display*/}
+          <span className="w-full h-1/2 bg-common flex flex-col p-4 mx-2">
+            <p className="text-3xl">Air Quality Index</p>
+            <span className="flex items-center">
+              <MdLocationPin />
+              <p>{weatherData.name}</p>
+            </span>
+            <div className="flex flex-col w-full h-full flex-shrink-0 flex-wrap">
+              {Object.entries(aqi.list[0].components).map(([key, value]) => (
+                <span className="flex bg-common w-full px-4 my-[calc(1%)] min-w-16 justify-between items-center">
+                  <p>{key}</p>
+                  <p>{value}</p>
+                </span>
+              ))}
+            </div>
+          </span>
+        </div>
       </div>
     </>
   );
