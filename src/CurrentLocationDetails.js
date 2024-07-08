@@ -1,6 +1,6 @@
 export default function CurrentLocationDetails({ loading, weatherData }) {
   return (
-    <div className="flex w-full h-1/2 min-h-1/2 flex-shrink-0">
+    <div className="flex w-full h-full border min-h-1/2 flex-shrink-0">
       {loading && <p>Loading...</p>}
       {weatherData.coord ? (
         <span className="flex flex-col">

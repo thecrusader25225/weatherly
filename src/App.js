@@ -86,20 +86,22 @@ export default function App() {
   console.log(bulkWeatherData);
   return (
     <>
-      <div className="bg-slate-700 w-screen h-screen text-white flex">
+      <div className="bg-slate-700 w-screen h-screen text-white flex flex-col">
         {/* left search panel */}
-        <SearchPanel
-          setCityName={setCityName}
-          setCountryName={setCountryName}
-          fetchGeocodingData={fetchGeocodingData}
-          locationSearchData={locationSearchData}
-          handleClickLocation={handleClickLocation}
-        />
-
-        {/* middle display panels */}
-        <div className="flex flex-col w-full h-full bg-slate-600 pl-[calc(25%)]">
+        <span className="w-3/4 h-1/2 flex bg-slate-800">
+          <SearchPanel
+            setCityName={setCityName}
+            setCountryName={setCountryName}
+            fetchGeocodingData={fetchGeocodingData}
+            locationSearchData={locationSearchData}
+            handleClickLocation={handleClickLocation}
+          />
           {/* details of current location */}
           <CurrentLocationDetails loading={loading} weatherData={weatherData} />
+        </span>
+
+        {/* middle display panels */}
+        <div className="flex flex-col w-full h-1/2 bg-slate-600  pr-[calc(25%)]">
           {/* details of 5 day forecast */}
           <FiveDayForecastDetails
             bulkWeatherData={bulkWeatherData}

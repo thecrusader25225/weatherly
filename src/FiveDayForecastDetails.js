@@ -3,7 +3,7 @@ export default function FiveDayForecastDetails({
   fiveDayForecast,
 }) {
   return (
-    <div className="flex flex-col bg-slate-700 w-full h-auto min-h-1/2 flex-shrink-0">
+    <div className="flex flex-col bg-slate-700 w-full h-full min-h-1/2 flex-shrink-0">
       <p>
         5 day forecast for {bulkWeatherData.city && bulkWeatherData.city.name}
       </p>

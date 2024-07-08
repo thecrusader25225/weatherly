@@ -6,7 +6,7 @@ export default function SearchPanel({
   handleClickLocation,
 }) {
   return (
-    <div className="flex flex-col w-1/4 h-full bg-slate-400 fixed">
+    <div className="flex flex-col w-1/4 h-full bg-slate-400">
       <span>
         <input
           type="text"
