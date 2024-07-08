@@ -1,6 +1,7 @@
 import { BsSunrise, BsSunset, BsWind } from "react-icons/bs";
 import { FaLocationPin } from "react-icons/fa6";
 import { LuLeaf } from "react-icons/lu";
+import { MdLocationPin } from "react-icons/md";
 export default function CurrentLocationDetails({ loading, weatherData, aqi }) {
   const windDirection = (degrees) => {
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
@@ -16,43 +17,43 @@ export default function CurrentLocationDetails({ loading, weatherData, aqi }) {
             <div className="flex  w-1/2 items-center bg-common px-2">
               <span className="flex flex-col w-1/3">
                 <p className="text-base lg:text-lg xl:text-xl 2xl:text-3xl text-wrap ">
-                  {weatherData.name}, {weatherData.sys.country}
+                  {weatherData?.name}, {weatherData?.sys.country}
                 </p>
-                <span className="flex">
-                  <FaLocationPin />
-                  <p>
-                    {weatherData.coord.lat}, {weatherData.coord.lon}
+                <span className="flex items-center">
+                  <MdLocationPin className="text-lg" />
+                  <p className="text-xs xl:text-base">
+                    {weatherData?.coord.lat}, {weatherData?.coord.lon}
                   </p>
                 </span>
               </span>
               <span className="flex flex-col justify-center items-center w-2/3">
                 <span className="flex text-3xl lg:text-5xl xl:text-7xl items-center">
                   <img
-                    src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
+                    src={`https://openweathermap.org/img/wn/${weatherData?.weather[0]?.icon}.png`}
                     alt="weather"
                     className="w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24"
                   />
                   <span className="flex">
-                    <p>{Math.round(weatherData.main.temp - 273.15)}</p>
+                    <p>{Math.round(weatherData?.main?.temp - 273.15)}</p>
                     <p className="text-xl"> ℃</p>
                   </span>
                 </span>
                 <p className="text-base xl:text-xl">
-                  ={weatherData.weather[0].main}=
+                  ={weatherData?.weather[0]?.main}=
                 </p>
                 <div className="p-1">
                   <span className="flex items-center">
                     <BsSunrise className="text-xl" />
                     <p className="text-sm xl:text-base">
                       {new Date(
-                        weatherData.sys.sunrise * 1000
+                        weatherData?.sys.sunrise * 1000
                       ).toLocaleTimeString()}
                     </p>
                   </span>
                   <span className="flex items-center">
                     <p className="text-sm xl:text-base">
                       {new Date(
-                        weatherData.sys.sunset * 1000
+                        weatherData?.sys.sunset * 1000
                       ).toLocaleTimeString()}
                     </p>
                     <BsSunset className="text-xl" />
