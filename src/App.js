@@ -6,6 +6,8 @@ import CurrentLocationDetails from "./CurrentLocationDetails";
 import FiveDayForecastDetails from "./FiveDayForecastDetails";
 import { FaLocationPin } from "react-icons/fa6";
 import { MdLocationPin } from "react-icons/md";
+import WeatherNews from "./WeatherNews";
+import AqiDetails from "./AqiDetails";
 
 export default function App() {
   const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
@@ -146,39 +148,9 @@ export default function App() {
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full ">
           {/* AQI details display*/}
-          <span className="w-full h-1/2 bg-common flex flex-col p-4 mx-2">
-            <p className="text-3xl">Air Quality Index</p>
-            <span className="flex items-center">
-              <MdLocationPin />
-              <p>{weatherData.name}</p>
-            </span>
-            <div className="flex flex-col w-full h-full flex-shrink-0 flex-wrap">
-              {aqi.list &&
-                aqi.list.length > 0 &&
-                Object.entries(aqi.list[0].components).map(([key, value]) => (
-                  <span className="flex bg-common w-full px-4 my-[calc(1%)] min-w-16 justify-between items-center overflow-y-auto">
-                    <p>{key}</p>
-                    <p>{value}</p>
-                  </span>
-                ))}
-            </div>
-          </span>
-          <span className="w-full h-1/2  bg-common flex flex-col p-4 m-2">
-            <p className="text-3xl">Weather News</p>
-            <span className="flex flex-col overflow-y-auto">
-              {news &&
-                news.length > 0 &&
-                news.map((news, index) => (
-                  <a href={news.url}>
-                    <div className="p-2 bg-white bg-opacity-5 flex flex-col">
-                      <img src={news.image} alt={index} />
-                      <p>{news.summary}</p>
-                    </div>
-                  </a>
-                ))}
-              <button onClick={handleLoadNews}>Load More</button>
-            </span>
-          </span>
+          <AqiDetails weatherData={weatherData} aqi={aqi} />
+          {/* Weather news display */}
+          <WeatherNews news={news} handleLoadNews={handleLoadNews} />
         </div>
       </div>
     </>
