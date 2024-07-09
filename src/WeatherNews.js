@@ -7,7 +7,7 @@ export default function WeatherNews({ news, handleLoadNews }) {
           news.length > 0 &&
           news.map((news, index) => (
             <a href={news.url} target="_blank" rel="noreferrer">
-              <div className="p-4 m-2 bg-common flex flex-col">
+              <div className="p-4 m-2 bg-common button-common flex flex-col">
                 <p className="text-sm text-right text-slate-400">
                   Published on {news.publish_date}
                 </p>
@@ -30,7 +30,12 @@ export default function WeatherNews({ news, handleLoadNews }) {
               </div>
             </a>
           ))}
-        <button onClick={handleLoadNews}>Load More</button>
+        <button
+          className="bg-common button-common mx-2"
+          onClick={handleLoadNews}
+        >
+          Load More
+        </button>
       </span>
     </span>
   );

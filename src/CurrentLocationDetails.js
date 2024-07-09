@@ -14,9 +14,9 @@ export default function CurrentLocationDetails({ loading, weatherData, aqi }) {
       {weatherData.coord ? (
         <div className="flex flex-col w-full h-full">
           <span className="flex flex-row justify-between w-full h-full">
-            <div className="flex  w-1/2 items-center bg-common px-2">
-              <span className="flex flex-col w-1/3">
-                <p className="text-base lg:text-lg xl:text-xl 2xl:text-3xl text-wrap ">
+            <div className="flex w-1/2 items-center bg-common px-2">
+              <span className="flex flex-col w-1/3 items-center">
+                <p className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl text-wrap text-center">
                   {weatherData?.name}, {weatherData?.sys.country}
                 </p>
                 <span className="flex items-center">

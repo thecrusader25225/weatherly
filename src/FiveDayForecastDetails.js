@@ -11,9 +11,9 @@ export default function FiveDayForecastDetails({
       <div className="flex flex-row justify-between w-full h-full">
         <span className="flex flex-col w-1/2">
           {fiveDayForecast.map(
-            (data) =>
+            (data, index) =>
               data.dt_txt.includes("09:00:00") && (
-                <span className="flex bg-common my-1 w-full">
+                <span className="flex justify-start bg-common my-1 w-full">
                   <img
                     src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
                     className="w-8 h-8"
@@ -28,11 +28,11 @@ export default function FiveDayForecastDetails({
               )
           )}
         </span>
-        <span className="flex flex-col">
+        <span className="flex flex-col w-1/2">
           {fiveDayForecast.map(
             (data) =>
               data.dt_txt.includes("21:00:00") && (
-                <span className="flex">
+                <span className="flex justify-end bg-common my-1 w-full">
                   <p>{data.dt_txt}</p>
                   <img
                     src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}

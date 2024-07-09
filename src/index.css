@@ -5,3 +5,6 @@
 .bg-common{
     @apply bg-white bg-opacity-5 rounded-3xl
 }
+.button-common{
+    @apply hover:scale-95 duration-100
+}
