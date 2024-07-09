@@ -92,7 +92,7 @@ export default function CurrentLocationDetails({ loading, weatherData, aqi }) {
                   </p>
                 </span>
                 <span className="w-1/3  m-1 text-base lg:text-xl xl:text-2xl flex items-center justify-center bg-common">
-                  <p>AQI:{aqi.list[0].main.aqi}</p>
+                  <p>AQI:{aqi?.list[0]?.main?.aqi}</p>
                   <LuLeaf />
                 </span>
               </div>
