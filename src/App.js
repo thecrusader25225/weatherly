@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiCloudDrizzle } from "react-icons/ci";
 import { GiSun } from "react-icons/gi";
 import SearchPanel from "./SearchPanel";
@@ -21,6 +21,7 @@ export default function App() {
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
   const [timeData, setTimeData] = useState("");
   const [news, setNews] = useState("");
+  const [offset, setOffset] = useState(0);
 
   const [loading, setLoading] = useState(false);
 
@@ -84,10 +85,10 @@ export default function App() {
   };
   const fetchNews = () => {
     fetch(
-      `https://api.worldnewsapi.com/search-news?api-key=${NEWS_API_KEY}&text=weather`
+      `https://api.worldnewsapi.com/search-news?api-key=${NEWS_API_KEY}&text=weather&offset=${offset}`
     )
       .then((res) => res.json())
-      .then((res) => setNews(res));
+      .then((res) => setNews((prev) => [...prev, ...res.news]));
   };
 
   const handleClickLocation = (location) => {
@@ -99,6 +100,10 @@ export default function App() {
     fetchAQI(location.coord.lat, location.coord.lon);
     fetchNews();
   };
+  const handleLoadNews = () => {
+    setOffset(offset + 10);
+  };
+  useEffect(() => fetchNews(), [offset]);
 
   // console.log(locationSearchData);
   // console.log(weatherData);
@@ -161,9 +166,9 @@ export default function App() {
           <span className="w-full h-1/2  bg-common flex flex-col p-4 m-2">
             <p className="text-3xl">Weather News</p>
             <span className="flex flex-col overflow-y-auto">
-              {news.news &&
-                news.news.length > 0 &&
-                news.news.map((news, index) => (
+              {news &&
+                news.length > 0 &&
+                news.map((news, index) => (
                   <a href={news.url}>
                     <div className="p-2 bg-white bg-opacity-5 flex flex-col">
                       <img src={news.image} alt={index} />
@@ -171,7 +176,7 @@ export default function App() {
                     </div>
                   </a>
                 ))}
-              <button onClick={fetchNews}>Load More</button>
+              <button onClick={handleLoadNews}>Load More</button>
             </span>
           </span>
         </div>
