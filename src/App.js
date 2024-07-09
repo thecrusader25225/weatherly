@@ -100,7 +100,6 @@ export default function App() {
     fetchWeathermapData(location.coord.lat, location.coord.lon);
     fetchWeathermapDataFor5Days(location.coord.lat, location.coord.lon);
     fetchAQI(location.coord.lat, location.coord.lon);
-    fetchNews();
   };
   const handleLoadNews = () => {
     setOffset(offset + 10);
