@@ -3,12 +3,12 @@ import { MdLocationPin } from "react-icons/md";
 export default function AqiDetails({ weatherData, aqi }) {
   return (
     <span className="w-full h-[calc(40%)] bg-common flex flex-col p-4 mx-2">
-      <p className="text-3xl">Air Quality Index</p>
+      <p className="text-2xl">Air Quality Index</p>
       <span className="flex items-center">
         <MdLocationPin />
         <p>{weatherData.name}</p>
       </span>
-      <div className="flex flex-col w-full h-full flex-shrink-0 flex-wrap">
+      <div className="flex flex-col w-full h-full flex-shrink-0 overflow-y-auto">
         {aqi.list &&
           aqi.list.length > 0 &&
           Object.entries(aqi.list[0].components).map(([key, value]) => (

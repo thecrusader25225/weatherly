@@ -101,6 +101,12 @@ export default function App() {
     fetchWeathermapDataFor5Days(location.coord.lat, location.coord.lon);
     fetchAQI(location.coord.lat, location.coord.lon);
   };
+  const windDirection = (degrees) => {
+    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    const indexWindComingFrom = Math.round(degrees / 45) % 8;
+    const indexWindGoingTo = (indexWindComingFrom + 4) % 8;
+    return `${directions[indexWindComingFrom]} -> ${directions[indexWindGoingTo]}`;
+  };
   const handleLoadNews = () => {
     setOffset(offset + 10);
   };
@@ -108,11 +114,11 @@ export default function App() {
 
   // console.log(locationSearchData);
   // console.log(weatherData);
-  // console.log(fiveDayForecast);
+  console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
   // console.log(aqi);
   // console.log(timeData);
-  console.log(news);
+  // console.log(news);
   return (
     <>
       <div className="bg-slate-800 w-screen h-screen text-white flex flex-col">
@@ -131,18 +137,20 @@ export default function App() {
             loading={loading}
             weatherData={weatherData}
             aqi={aqi}
+            windDirection={windDirection}
           />
         </span>
 
         {/* middle display panels */}
-        <div className="flex flex-col w-3/4 h-1/2 ml-2 pr-2 py-2">
+        <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2">
           {/* details of 5 day forecast */}
           <FiveDayForecastDetails
             bulkWeatherData={bulkWeatherData}
             fiveDayForecast={fiveDayForecast}
+            windDirection={windDirection}
           />
           {/* details of 24 hr forecast */}
-          {/* will do later */}
+          <div className="flex flex-col bg-common  w-full h-full p-4 mt-2"></div>
         </div>
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full ">

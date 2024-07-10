@@ -2,13 +2,12 @@ import { BsSunrise, BsSunset, BsWind } from "react-icons/bs";
 import { FaLocationPin } from "react-icons/fa6";
 import { LuLeaf } from "react-icons/lu";
 import { MdLocationPin } from "react-icons/md";
-export default function CurrentLocationDetails({ loading, weatherData, aqi }) {
-  const windDirection = (degrees) => {
-    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    const indexWindComingFrom = Math.round(degrees / 45) % 8;
-    const indexWindGoingTo = (indexWindComingFrom + 4) % 8;
-    return `${directions[indexWindComingFrom]} -> ${directions[indexWindGoingTo]}`;
-  };
+export default function CurrentLocationDetails({
+  loading,
+  weatherData,
+  aqi,
+  windDirection,
+}) {
   return (
     <div className="flex w-3/4 h-full  min-h-1/2 flex-shrink-0 px-[calc(5%)] py-[calc(2%)] bg-common">
       {weatherData.coord ? (
