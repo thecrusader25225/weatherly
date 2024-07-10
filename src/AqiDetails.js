@@ -8,6 +8,7 @@ export default function AqiDetails({ weatherData, aqi }) {
         <MdLocationPin />
         <p>{weatherData.name}</p>
       </span>
+      <div className="h-bar" />
       <div className="flex flex-col w-full h-full flex-shrink-0 overflow-y-auto">
         {aqi.list &&
           aqi.list.length > 0 &&

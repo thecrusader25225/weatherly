@@ -1,7 +1,8 @@
 export default function WeatherNews({ news, handleLoadNews }) {
   return (
     <span className="w-full h-[calc(60%)]  bg-common flex flex-col p-4 m-2">
-      <p className="text-3xl">Weather News</p>
+      <p className="text-2xl">Weather News</p>
+      <div className="h-bar" />
       <span className="flex flex-col overflow-y-auto overflow-x-hidden">
         {news &&
           news.length > 0 &&
@@ -12,7 +13,7 @@ export default function WeatherNews({ news, handleLoadNews }) {
                   Published on {news.publish_date}
                 </p>
                 <img src={news.image} alt={index} className="rounded-3xl" />
-                <p className="bg-common p-2 my-2">
+                <p className="bg-common p-2 my-2 break-all">
                   {news.title && news.title.length > 200
                     ? news.title.substring(0, 201) + "..."
                     : news.title}

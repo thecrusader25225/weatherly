@@ -7,22 +7,25 @@ export default function SearchPanel({
 }) {
   return (
     <div className="flex flex-col w-1/3 h-full bg-common mx-2 py-4">
-      <span className="flex w-full">
+      <span className="flex w-full ">
         <input
           type="text"
           onChange={(e) => {
             setCityName(e.target.value);
             setCountryName("");
           }}
-          className="text-black w-full h-auto"
+          className="text-black w-full h-auto ml-2 rounded-l-lg"
           placeholder="Search for a City"
         />
-        <button className="" onClick={fetchGeocodingData}>
+        <button
+          className="rounded-r-lg border mr-2"
+          onClick={fetchGeocodingData}
+        >
           Fetch
         </button>
       </span>
 
-      <div className="w-full h-auto flex flex-col overflow-x-auto">
+      <div className="w-full h-auto flex flex-col overflow-y-auto">
         {locationSearchData.map((location, index) => (
           <button
             key={index}

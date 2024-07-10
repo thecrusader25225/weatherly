@@ -21,10 +21,10 @@ export default function FiveDayForecastDetails({
   }, [bulkWeatherData.city, fiveDayForecast]);
   return (
     <div className="flex flex-col bg-common  w-full h-full p-4">
-      <p className="text-3xl">
+      <p className="text-2xl">
         5-Day Forecast for {bulkWeatherData.city && bulkWeatherData.city.name}
       </p>
-      <div className="w-full h-0.5 bg-white" />
+      <div className="h-bar" />
       <div className="flex flex-row justify-between w-full h-full p-4">
         <span className="flex flex-col w-full h-full bg-common p-4 mt-2 ">
           {groupedForecast.map((forecast, index) => {

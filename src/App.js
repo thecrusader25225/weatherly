@@ -8,21 +8,26 @@ import { FaLocationPin } from "react-icons/fa6";
 import { MdLocationPin } from "react-icons/md";
 import WeatherNews from "./WeatherNews";
 import AqiDetails from "./AqiDetails";
+import TwentyfourHourForecastDetails from "./TwentyfourHourForecastDetails";
 
 export default function App() {
   const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
   const NEWS_API_KEY = "bd230653251844188335683c4c1c7814";
+  const qWeather_API_KEY = "9000babd99dc467cac785cabbc89dbef";
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
   const [countryName, setCountryName] = useState("");
 
   const [locationSearchData, setLocationSearchData] = useState([]);
   const [aqi, setAqi] = useState({ list: [] });
+
   const [weatherData, setWeatherData] = useState("");
   const [bulkWeatherData, setBulkWeatherData] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
+  const [twentyfourHourForecast, setTwentyfourHourForecast] = useState("");
+
   const [timeData, setTimeData] = useState("");
-  const [news, setNews] = useState("");
+  const [news, setNews] = useState([]);
   const [offset, setOffset] = useState(0);
 
   const [loading, setLoading] = useState(false);
@@ -90,7 +95,17 @@ export default function App() {
       `https://api.worldnewsapi.com/search-news?api-key=${NEWS_API_KEY}&text=weather&offset=${offset}`
     )
       .then((res) => res.json())
-      .then((res) => setNews((prev) => [...prev, ...res.news]));
+      .then((res) => {
+        if (res.news && Array.isArray(res.news))
+          setNews((prev) => [...prev, ...res.news]);
+      });
+  };
+  const fetchQWeatherDataFor24Hours = (lat, lon) => {
+    fetch(
+      `https://devapi.qweather.com/v7/weather/24h?location=${lon},${lat}&key=${qWeather_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((res) => setTwentyfourHourForecast(res));
   };
 
   const handleClickLocation = (location) => {
@@ -99,6 +114,7 @@ export default function App() {
     setCountryName(location.sys.country);
     fetchWeathermapData(location.coord.lat, location.coord.lon);
     fetchWeathermapDataFor5Days(location.coord.lat, location.coord.lon);
+    fetchQWeatherDataFor24Hours(location.coord.lat, location.coord.lon);
     fetchAQI(location.coord.lat, location.coord.lon);
   };
   const windDirection = (degrees) => {
@@ -112,18 +128,21 @@ export default function App() {
   };
   useEffect(() => fetchNews(), [offset]);
 
+  // by default
+
   // console.log(locationSearchData);
   // console.log(weatherData);
-  console.log(fiveDayForecast);
+  // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
+  // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
-  // console.log(news);
+  console.log(news);
   return (
     <>
-      <div className="bg-slate-800 w-screen h-screen text-white flex flex-col">
+      <div className="bg-slate-800 w-screen h-screen text-white flex flex-col overflow-y-auto">
         {/* search panel + current details */}
-        <span className="w-3/4 h-1/3 flex ">
+        <span className="w-3/4 h-1/4 flex ">
           {/* search panel */}
           <SearchPanel
             setCityName={setCityName}
@@ -142,7 +161,7 @@ export default function App() {
         </span>
 
         {/* middle display panels */}
-        <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2">
+        <div className="flex flex-col w-3/4 h-3/4 ml-2 pr-2 py-2">
           {/* details of 5 day forecast */}
           <FiveDayForecastDetails
             bulkWeatherData={bulkWeatherData}
@@ -150,7 +169,10 @@ export default function App() {
             windDirection={windDirection}
           />
           {/* details of 24 hr forecast */}
-          <div className="flex flex-col bg-common  w-full h-full p-4 mt-2"></div>
+          <TwentyfourHourForecastDetails
+            weatherData={weatherData}
+            twentyfourHourForecast={twentyfourHourForecast}
+          />
         </div>
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full ">

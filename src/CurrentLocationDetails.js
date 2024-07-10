@@ -15,12 +15,12 @@ export default function CurrentLocationDetails({
           <span className="flex flex-row justify-between w-full h-full">
             <div className="flex w-1/2 items-center bg-common px-2">
               <span className="flex flex-col w-1/3 items-center">
-                <p className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl text-wrap text-center">
+                <p className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl text-wrap text-center break-all">
                   {weatherData?.name}, {weatherData?.sys.country}
                 </p>
-                <span className="flex items-center">
-                  <MdLocationPin className="text-lg" />
-                  <p className="text-xs xl:text-base">
+                <span className="flex items-center justify-center">
+                  <MdLocationPin className="text-2xl" />
+                  <p className="text-xs text-center">
                     {weatherData?.coord.lat}, {weatherData?.coord.lon}
                   </p>
                 </span>
