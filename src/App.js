@@ -140,7 +140,7 @@ export default function App() {
   console.log(news);
   return (
     <>
-      <div className="bg-slate-800 w-screen h-screen text-white flex flex-col overflow-y-auto">
+      <div className="bg-slate-800 w-screen h-screen text-white flex flex-col ">
         {/* search panel + current details */}
         <span className="w-3/4 h-1/4 flex ">
           {/* search panel */}
@@ -161,7 +161,7 @@ export default function App() {
         </span>
 
         {/* middle display panels */}
-        <div className="flex flex-col w-3/4 h-3/4 ml-2 pr-2 py-2">
+        <div className="flex flex-col w-3/4 h-3/4 ml-2 pr-2 py-2 overflow-y-auto">
           {/* details of 5 day forecast */}
           <FiveDayForecastDetails
             bulkWeatherData={bulkWeatherData}
