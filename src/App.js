@@ -142,7 +142,7 @@ export default function App() {
     <>
       <div className="bg-slate-800 w-screen h-screen text-white flex flex-col ">
         {/* search panel + current details */}
-        <span className="w-3/4 h-1/3 flex ">
+        <span className="w-3/4 h-auto flex ">
           {/* search panel */}
           <SearchPanel
             setCityName={setCityName}
@@ -151,17 +151,21 @@ export default function App() {
             locationSearchData={locationSearchData}
             handleClickLocation={handleClickLocation}
           />
-          {/* details of current location */}
-          <CurrentLocationDetails
-            loading={loading}
-            weatherData={weatherData}
-            aqi={aqi}
-            windDirection={windDirection}
-          />
+          <span className="flex flex-col w-3/4 h-full">
+            {/* details of current location */}
+            <CurrentLocationDetails
+              loading={loading}
+              weatherData={weatherData}
+              aqi={aqi}
+              windDirection={windDirection}
+            />
+            {/* AQI details display*/}
+            <AqiDetails weatherData={weatherData} aqi={aqi} />
+          </span>
         </span>
 
         {/* middle display panels */}
-        <div className="flex flex-col w-3/4 h-2/3 ml-2 pr-2 py-2 overflow-y-auto">
+        <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2 overflow-y-auto">
           {/* details of 5 day forecast */}
           <FiveDayForecastDetails
             bulkWeatherData={bulkWeatherData}
@@ -176,8 +180,6 @@ export default function App() {
         </div>
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full ">
-          {/* AQI details display*/}
-          <AqiDetails weatherData={weatherData} aqi={aqi} />
           {/* Weather news display */}
           <WeatherNews news={news} handleLoadNews={handleLoadNews} />
         </div>
