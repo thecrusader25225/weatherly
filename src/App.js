@@ -9,6 +9,8 @@ import { MdLocationPin } from "react-icons/md";
 import WeatherNews from "./WeatherNews";
 import AqiDetails from "./AqiDetails";
 import TwentyfourHourForecastDetails from "./TwentyfourHourForecastDetails";
+import Bot from "./LeafletMap";
+import LeafletMap from "./LeafletMap";
 
 export default function App() {
   const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
@@ -140,7 +142,7 @@ export default function App() {
   console.log(news);
   return (
     <>
-      <div className="bg-slate-800 w-screen h-screen text-white flex flex-col ">
+      <div className="bg-slate-800 w-screen h-screen text-white flex flex-col overflow-y-auto">
         {/* search panel + current details */}
         <span className="w-3/4 h-auto flex ">
           {/* search panel */}
@@ -165,7 +167,7 @@ export default function App() {
         </span>
 
         {/* middle display panels */}
-        <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2 overflow-y-auto">
+        <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2 ">
           {/* details of 5 day forecast */}
           <FiveDayForecastDetails
             bulkWeatherData={bulkWeatherData}
@@ -178,10 +180,14 @@ export default function App() {
             twentyfourHourForecast={twentyfourHourForecast}
           />
         </div>
+        <div className="flex w-3/4 h-auto justify-center m-2">
+          <LeafletMap position={[51, 22]} zoom={13} />
+        </div>
+
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full ">
           {/* Weather news display */}
-          <WeatherNews news={news} handleLoadNews={handleLoadNews} />
+          {/* <WeatherNews news={news} handleLoadNews={handleLoadNews} /> */}
         </div>
       </div>
     </>
