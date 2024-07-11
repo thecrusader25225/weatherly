@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiCloudDrizzle } from "react-icons/ci";
 import { GiSun } from "react-icons/gi";
+import SearchPanel from "./SearchPanel";
+import CurrentLocationDetails from "./CurrentLocationDetails";
+import FiveDayForecastDetails from "./FiveDayForecastDetails";
+import { FaLocationPin } from "react-icons/fa6";
+import { MdLocationPin } from "react-icons/md";
+import WeatherNews from "./WeatherNews";
+import AqiDetails from "./AqiDetails";
+import TwentyfourHourForecastDetails from "./TwentyfourHourForecastDetails";
 
 export default function App() {
   const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
-
+  const NEWS_API_KEY = "bd230653251844188335683c4c1c7814";
+  const qWeather_API_KEY = "9000babd99dc467cac785cabbc89dbef";
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
   const [countryName, setCountryName] = useState("");
 
   const [locationSearchData, setLocationSearchData] = useState([]);
+  const [aqi, setAqi] = useState({ list: [] });
 
   const [weatherData, setWeatherData] = useState("");
   const [bulkWeatherData, setBulkWeatherData] = useState([]);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
+  const [twentyfourHourForecast, setTwentyfourHourForecast] = useState("");
+
+  const [timeData, setTimeData] = useState("");
+  const [news, setNews] = useState([]);
+  const [offset, setOffset] = useState(0);
 
   const [loading, setLoading] = useState(false);
 
@@ -68,6 +83,30 @@ export default function App() {
         setLoading(false);
       });
   };
+  const fetchAQI = (lat, lon) => {
+    fetch(
+      `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((res) => setAqi(res));
+  };
+  const fetchNews = () => {
+    fetch(
+      `https://api.worldnewsapi.com/search-news?api-key=${NEWS_API_KEY}&text=weather&offset=${offset}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.news && Array.isArray(res.news))
+          setNews((prev) => [...prev, ...res.news]);
+      });
+  };
+  const fetchQWeatherDataFor24Hours = (lat, lon) => {
+    fetch(
+      `https://devapi.qweather.com/v7/weather/24h?location=${lon},${lat}&key=${qWeather_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((res) => setTwentyfourHourForecast(res));
+  };
 
   const handleClickLocation = (location) => {
     setCityName(location.name);
@@ -75,103 +114,74 @@ export default function App() {
     setCountryName(location.sys.country);
     fetchWeathermapData(location.coord.lat, location.coord.lon);
     fetchWeathermapDataFor5Days(location.coord.lat, location.coord.lon);
+    fetchQWeatherDataFor24Hours(location.coord.lat, location.coord.lon);
+    fetchAQI(location.coord.lat, location.coord.lon);
   };
+  const windDirection = (degrees) => {
+    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    const indexWindComingFrom = Math.round(degrees / 45) % 8;
+    const indexWindGoingTo = (indexWindComingFrom + 4) % 8;
+    return `${directions[indexWindComingFrom]} -> ${directions[indexWindGoingTo]}`;
+  };
+  const handleLoadNews = () => {
+    setOffset(offset + 10);
+  };
+  useEffect(() => fetchNews(), [offset]);
+
+  // by default
 
   // console.log(locationSearchData);
   // console.log(weatherData);
-  console.log(fiveDayForecast);
-  console.log(bulkWeatherData);
+  // console.log(fiveDayForecast);
+  // console.log(bulkWeatherData);
+  // console.log(twentyfourHourForecast);
+  // console.log(aqi);
+  // console.log(timeData);
+  console.log(news);
   return (
     <>
-      <div className="bg-slate-700 w-screen h-screen text-white flex">
-        {/* left search panel */}
-        <div className="flex flex-col w-1/4 h-full bg-slate-400 fixed">
-          <span>
-            <input
-              type="text"
-              onChange={(e) => {
-                setCityName(e.target.value);
-                setCountryName("");
-              }}
-              className="text-black w-auto h-auto"
-              placeholder="City"
+      <div className="bg-slate-800 w-screen h-screen text-white flex flex-col ">
+        {/* search panel + current details */}
+        <span className="w-3/4 h-auto flex ">
+          {/* search panel */}
+          <SearchPanel
+            setCityName={setCityName}
+            setCountryName={setCountryName}
+            fetchGeocodingData={fetchGeocodingData}
+            locationSearchData={locationSearchData}
+            handleClickLocation={handleClickLocation}
+          />
+          <span className="flex flex-col w-3/4 h-full">
+            {/* details of current location */}
+            <CurrentLocationDetails
+              loading={loading}
+              weatherData={weatherData}
+              aqi={aqi}
+              windDirection={windDirection}
             />
-            <button className="border" onClick={fetchGeocodingData}>
-              Fetch
-            </button>
+            {/* AQI details display*/}
+            <AqiDetails weatherData={weatherData} aqi={aqi} />
           </span>
-
-          <div className="w-full h-auto flex flex-col ">
-            {locationSearchData.map((location, index) => (
-              <button
-                key={index}
-                className="border"
-                onClick={() => handleClickLocation(location)}
-              >
-                {location.name}, {location.sys.country}
-              </button>
-            ))}
-          </div>
-        </div>
+        </span>
 
         {/* middle display panels */}
-        <div className="flex flex-col w-full h-full bg-slate-600 pl-[calc(25%)]">
-          {/* details of current location */}
-          <div className="flex w-full h-1/2 min-h-1/2 flex-shrink-0">
-            {loading && <p>Loading...</p>}
-            {weatherData.coord ? (
-              <span className="flex flex-col">
-                <p>
-                  {weatherData.name}, {weatherData.sys.country}
-                </p>
-                <p>Coordinates</p>
-                <p>Latitude: {weatherData.coord.lat}</p>
-                <p>Longitude: {weatherData.coord.lon}</p>
-              </span>
-            ) : (
-              <p>Search for a location</p>
-            )}
-          </div>
+        <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2 overflow-y-auto">
           {/* details of 5 day forecast */}
-          <div className="flex flex-col bg-slate-700 w-full h-auto min-h-1/2 flex-shrink-0">
-            <p>
-              5 day forecast for
-              {bulkWeatherData.city && bulkWeatherData.city.name}
-            </p>
-            <div className="flex flex-row justify-between w-full h-full">
-              <span className="flex flex-col">
-                {fiveDayForecast.map(
-                  (data) =>
-                    data.dt_txt.includes("09:00:00") && (
-                      <span className="flex">
-                        <img
-                          src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
-                          className="w-8 h-8"
-                          alt="Weather icon"
-                        />
-                        <p>{data.dt_txt}</p>
-                      </span>
-                    )
-                )}
-              </span>
-              <span className="flex flex-col">
-                {fiveDayForecast.map(
-                  (data) =>
-                    data.dt_txt.includes("21:00:00") && (
-                      <span className="flex">
-                        <p>{data.dt_txt}</p>
-                        <img
-                          src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
-                          className="w-8 h-8"
-                          alt="Weather icon"
-                        />
-                      </span>
-                    )
-                )}
-              </span>
-            </div>
-          </div>
+          <FiveDayForecastDetails
+            bulkWeatherData={bulkWeatherData}
+            fiveDayForecast={fiveDayForecast}
+            windDirection={windDirection}
+          />
           {/* details of 24 hr forecast */}
+          <TwentyfourHourForecastDetails
+            weatherData={weatherData}
+            twentyfourHourForecast={twentyfourHourForecast}
+          />
+        </div>
+        {/* right SOMETHING panel */}
+        <div className="fixed top-0 right-0 w-1/4 h-full ">
+          {/* Weather news display */}
+          <WeatherNews news={news} handleLoadNews={handleLoadNews} />
         </div>
       </div>
     </>
