@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiCloudDrizzle } from "react-icons/ci";
 import { GiSun } from "react-icons/gi";
 import SearchPanel from "./SearchPanel";
@@ -33,6 +33,8 @@ export default function App() {
   const [offset, setOffset] = useState(0);
 
   const [loading, setLoading] = useState(false);
+
+  const appRef = useRef(null);
 
   const fetchGeocodingData = () => {
     setLoading(true);
@@ -76,11 +78,13 @@ export default function App() {
       .then((res) => {
         setBulkWeatherData(res);
         setFiveDayForecast(
-          res.list.filter(
-            (forecast) =>
-              forecast.dt_txt.includes("09:00:00") ||
-              forecast.dt_txt.includes("21:00:00")
-          )
+          res &&
+            res.list > 0 &&
+            res?.list?.filter(
+              (forecast) =>
+                forecast.dt_txt.includes("09:00:00") ||
+                forecast.dt_txt.includes("21:00:00")
+            )
         );
         setLoading(false);
       });
@@ -130,18 +134,27 @@ export default function App() {
   };
   useEffect(() => fetchNews(), [offset]);
 
+  const scrollToTop = () => {
+    appRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  };
+
   // by default
 
   // console.log(locationSearchData);
   // console.log(weatherData);
-  // console.log(fiveDayForecast);
-  // console.log(bulkWeatherData);
+  console.log(fiveDayForecast);
+  console.log(bulkWeatherData);
   // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
-  console.log(news);
+  // console.log(news);
   return (
     <>
+      <div ref={appRef} />
       <div className="bg-slate-800 w-screen h-screen text-white flex flex-col overflow-y-auto">
         {/* search panel + current details */}
         <span className="w-3/4 h-auto flex ">
@@ -180,9 +193,16 @@ export default function App() {
             twentyfourHourForecast={twentyfourHourForecast}
           />
         </div>
-        <div className="flex w-3/4 h-auto justify-center m-2">
-          <LeafletMap position={[51, 22]} zoom={50} />
-        </div>
+
+        <LeafletMap
+          position={[0, 0]}
+          zoom={3}
+          fetchWeathermapData={fetchWeathermapData}
+          fetchWeathermapDataFor5Days={fetchWeathermapDataFor5Days}
+          fetchQWeatherDataFor24Hours={fetchQWeatherDataFor24Hours}
+          fetchAQI={fetchAQI}
+          scrollToTop={scrollToTop}
+        />
 
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full ">

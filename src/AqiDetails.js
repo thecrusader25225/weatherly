@@ -12,7 +12,9 @@ export default function AqiDetails({ weatherData, aqi }) {
         <div className="flex w-full h-full flex-shrink-0 items-center">
           {aqi.list &&
             aqi.list.length > 0 &&
-            Object.entries(aqi.list[0].components).map(([key, value]) => (
+            Object.entries(
+              aqi && aqi.list.length > 0 && aqi?.list[0]?.components
+            ).map(([key, value]) => (
               <span className="flex flex-col bg-white bg-opacity-5 w-14 h-14 rounded-full justify-center items-center overflow-y-auto flex-shrink-0 text-sm m-1">
                 <p className="font-bold">{key.toUpperCase()}</p>
                 <p>{value}</p>
