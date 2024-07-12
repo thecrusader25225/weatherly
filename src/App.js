@@ -181,7 +181,7 @@ export default function App() {
           />
         </div>
         <div className="flex w-3/4 h-auto justify-center m-2">
-          <LeafletMap position={[51, 22]} zoom={13} />
+          <LeafletMap position={[51, 22]} zoom={50} />
         </div>
 
         {/* right SOMETHING panel */}
