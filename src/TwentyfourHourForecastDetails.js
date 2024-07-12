@@ -3,7 +3,7 @@ export default function TwentyfourHourForecastDetails({
   twentyfourHourForecast,
 }) {
   return (
-    <div className="flex flex-col bg-common  w-full h-1/3 p-4 mt-2 flex-shrink-0">
+    <div className="flex flex-col bg-common  w-full h-1/3 p-4 mb-2 flex-shrink-0">
       <p className="text-2xl">24-Hour Forecast for {weatherData?.name}</p>
       <div className="h-bar" />
       <span className="w-full h-full flex p-2 my-2 overflow-x-auto bg-common items-center">
