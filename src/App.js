@@ -35,7 +35,6 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   const appRef = useRef(null);
-
   const fetchGeocodingData = () => {
     setLoading(true);
     fetch(
@@ -78,13 +77,11 @@ export default function App() {
       .then((res) => {
         setBulkWeatherData(res);
         setFiveDayForecast(
-          res &&
-            res.list > 0 &&
-            res?.list?.filter(
-              (forecast) =>
-                forecast.dt_txt.includes("09:00:00") ||
-                forecast.dt_txt.includes("21:00:00")
-            )
+          res.list.filter(
+            (forecast) =>
+              forecast.dt_txt.includes("09:00:00") ||
+              forecast.dt_txt.includes("21:00:00")
+          )
         );
         setLoading(false);
       });
@@ -146,15 +143,14 @@ export default function App() {
 
   // console.log(locationSearchData);
   // console.log(weatherData);
-  console.log(fiveDayForecast);
-  console.log(bulkWeatherData);
+  // console.log(fiveDayForecast);
+  // console.log(bulkWeatherData);
   // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
-  // console.log(news);
+  console.log(news);
   return (
     <>
-      <div ref={appRef} />
       <div className="bg-slate-800 w-screen h-screen text-white flex flex-col overflow-y-auto">
         {/* search panel + current details */}
         <span className="w-3/4 h-auto flex ">
@@ -193,7 +189,6 @@ export default function App() {
             twentyfourHourForecast={twentyfourHourForecast}
           />
         </div>
-
         <LeafletMap
           position={[0, 0]}
           zoom={3}
