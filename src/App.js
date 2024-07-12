@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiCloudDrizzle } from "react-icons/ci";
 import { GiSun } from "react-icons/gi";
 import SearchPanel from "./SearchPanel";
@@ -33,6 +33,8 @@ export default function App() {
   const [offset, setOffset] = useState(0);
 
   const [loading, setLoading] = useState(false);
+
+  const appRef = useRef(null);
 
   const fetchGeocodingData = () => {
     setLoading(true);
@@ -128,9 +130,14 @@ export default function App() {
   const handleLoadNews = () => {
     setOffset(offset + 10);
   };
-  useEffect(() => fetchNews(), [offset]);
-
-  // by default
+  const scrollToTop = () => {
+    appRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  };
+  // useEffect(() => fetchNews(), [offset]);
 
   // console.log(locationSearchData);
   // console.log(weatherData);
@@ -143,6 +150,7 @@ export default function App() {
   return (
     <>
       <div className="bg-slate-800 w-screen h-screen text-white flex flex-col overflow-y-auto">
+        <div ref={appRef} />
         {/* search panel + current details */}
         <span className="w-3/4 h-auto flex ">
           {/* search panel */}
@@ -180,9 +188,16 @@ export default function App() {
             twentyfourHourForecast={twentyfourHourForecast}
           />
         </div>
-        <div className="flex w-3/4 h-auto justify-center m-2">
-          <LeafletMap position={[51, 22]} zoom={50} />
-        </div>
+
+        <LeafletMap
+          position={[51, 22]}
+          zoom={3}
+          fetchWeathermapData={fetchWeathermapData}
+          fetchWeathermapDataFor5Days={fetchWeathermapDataFor5Days}
+          fetchQWeatherDataFor24Hours={fetchQWeatherDataFor24Hours}
+          fetchAQI={fetchAQI}
+          scrollToTop={scrollToTop}
+        />
 
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full ">
