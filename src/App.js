@@ -16,12 +16,15 @@ export default function App() {
   const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
   const NEWS_API_KEY = "bd230653251844188335683c4c1c7814";
   const qWeather_API_KEY = "9000babd99dc467cac785cabbc89dbef";
+  const UV_API_KEY = "openuv-150uamrlyj0m5jv-io";
+
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
   const [countryName, setCountryName] = useState("");
 
   const [locationSearchData, setLocationSearchData] = useState([]);
-  const [aqi, setAqi] = useState({ list: [] });
+  const [aqi, setAqi] = useState({});
+  const [uv, setUv] = useState();
 
   const [weatherData, setWeatherData] = useState("");
   const [bulkWeatherData, setBulkWeatherData] = useState([]);
@@ -35,6 +38,9 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   const appRef = useRef(null);
+
+  const [latLon, setLatLon] = useState([0, 0]);
+
   const fetchGeocodingData = () => {
     setLoading(true);
     fetch(
@@ -110,6 +116,15 @@ export default function App() {
       .then((res) => res.json())
       .then((res) => setTwentyfourHourForecast(res));
   };
+  const fetchUV = (lat, lon) => {
+    fetch(`https://api.openuv.io/api/v1/uv?lat=${lat}&lng=${lon}`, {
+      headers: {
+        "x-access-token": UV_API_KEY,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => setUv(res));
+  };
 
   const handleClickLocation = (location) => {
     setCityName(location.name);
@@ -119,6 +134,8 @@ export default function App() {
     fetchWeathermapDataFor5Days(location.coord.lat, location.coord.lon);
     fetchQWeatherDataFor24Hours(location.coord.lat, location.coord.lon);
     fetchAQI(location.coord.lat, location.coord.lon);
+    fetchUV(location.coord.lat, location.coord.lon);
+    setLatLon(location.coord.lat, location.coord.lon);
   };
   const windDirection = (degrees) => {
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
@@ -129,7 +146,7 @@ export default function App() {
   const handleLoadNews = () => {
     setOffset(offset + 10);
   };
-  useEffect(() => fetchNews(), [offset]);
+  // useEffect(() => fetchNews(), [offset]);
 
   const scrollToTop = () => {
     appRef.current?.scrollIntoView({
@@ -148,7 +165,7 @@ export default function App() {
   // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
-  console.log(news);
+  // console.log(news);
   return (
     <>
       <div className="bg-slate-800 w-screen h-screen text-white flex flex-col overflow-y-auto">
@@ -168,7 +185,7 @@ export default function App() {
             <CurrentLocationDetails
               loading={loading}
               weatherData={weatherData}
-              aqi={aqi}
+              uv={uv}
               windDirection={windDirection}
             />
             {/* AQI details display*/}
@@ -191,19 +208,20 @@ export default function App() {
           />
         </div>
         <LeafletMap
-          position={[0, 0]}
+          position={latLon}
           zoom={3}
           fetchWeathermapData={fetchWeathermapData}
           fetchWeathermapDataFor5Days={fetchWeathermapDataFor5Days}
           fetchQWeatherDataFor24Hours={fetchQWeatherDataFor24Hours}
           fetchAQI={fetchAQI}
+          fetchUV={fetchUV}
           scrollToTop={scrollToTop}
         />
 
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full ">
           {/* Weather news display */}
-          {/* <WeatherNews news={news} handleLoadNews={handleLoadNews} /> */}
+          <WeatherNews news={news} handleLoadNews={handleLoadNews} />
         </div>
       </div>
     </>

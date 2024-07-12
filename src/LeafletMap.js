@@ -17,6 +17,7 @@ export default function LeafletMap({
   fetchWeathermapDataFor5Days,
   fetchQWeatherDataFor24Hours,
   fetchAQI,
+  fetchUV,
   scrollToTop,
 }) {
   const [mapCenter, setMapCenter] = useState([0, 0]);
@@ -37,6 +38,7 @@ export default function LeafletMap({
     fetchWeathermapDataFor5Days(mapCenter[0], mapCenter[1]);
     fetchQWeatherDataFor24Hours(mapCenter[0], mapCenter[1]);
     fetchAQI(mapCenter[0], mapCenter[1]);
+    fetchUV(mapCenter[0], mapCenter[1]);
   }, [mapCenter]);
 
   return (

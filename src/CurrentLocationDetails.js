@@ -3,10 +3,11 @@ import { FaLocationPin } from "react-icons/fa6";
 import { LuLeaf } from "react-icons/lu";
 import { MdLocationPin } from "react-icons/md";
 import AqiDetails from "./AqiDetails";
+import { TbUvIndex } from "react-icons/tb";
 export default function CurrentLocationDetails({
   loading,
   weatherData,
-  aqi,
+  uv,
   windDirection,
 }) {
   return (
@@ -15,7 +16,7 @@ export default function CurrentLocationDetails({
         <span className="flex flex-row justify-between w-full h-full">
           <div className="flex w-[calc(60%)] items-center justify-center">
             <span className="flex flex-col w-1/3 items-center">
-              <p className="text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl text-wrap text-center ">
+              <p className="text-base md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-wrap text-center ">
                 {weatherData?.name}, {weatherData?.sys.country}
               </p>
               <span className="flex items-center justify-center">
@@ -84,11 +85,15 @@ export default function CurrentLocationDetails({
               </span>
             </div>
             <div className="w-full h-1/3 flex  overflow-x-auto mt-2">
-              <span className="w-2/3  m-1 p-2 flex flex-col justify-center bg-common">
-                <p className="text-xs text-gray-400">Forecast Description</p>
-                <p className="text-sm lg:text-base xl:text-lg">
+              <span className="w-[calc(60%)]  m-1 p-2 flex flex-col justify-center bg-common">
+                <p className="text-xs text-gray-400 text-center">Description</p>
+                <p className="text-sm lg:text-base xl:text-lg text-center">
                   {weatherData.weather[0].description}
                 </p>
+              </span>
+              <span className="bg-common w-[calc(40%)] flex justify-center items-center text-center text-xl">
+                <TbUvIndex className="text-3xl" />{" "}
+                <p> {Math.round(uv?.result?.uv)}</p>
               </span>
             </div>
           </div>
