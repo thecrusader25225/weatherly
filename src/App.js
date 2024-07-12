@@ -152,6 +152,7 @@ export default function App() {
   return (
     <>
       <div className="bg-slate-800 w-screen h-screen text-white flex flex-col overflow-y-auto">
+        <div ref={appRef} />
         {/* search panel + current details */}
         <span className="w-3/4 h-auto flex ">
           {/* search panel */}
