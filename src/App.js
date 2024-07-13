@@ -148,7 +148,7 @@ export default function App() {
   const handleLoadNews = () => {
     setOffset(offset + 10);
   };
-  // useEffect(() => fetchNews(), [offset]);
+  useEffect(() => fetchNews(), [offset]);
 
   const scrollToTop = () => {
     appRef.current?.scrollIntoView({

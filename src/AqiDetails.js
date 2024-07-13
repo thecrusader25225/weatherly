@@ -7,7 +7,7 @@ export default function AqiDetails({ weatherData, aqi }) {
         <p>AQI: {aqi && aqi.list && aqi?.list[0]?.main?.aqi}</p>
         <LuLeaf />
       </div>
-      <div className="w-0.5 h-[calc(80%)] bg-white m-2 px-0.5 rounded-2xl" />
+      <div className="w-0.5 h-[calc(80%)] bg-white m-2 px-0.5 rounded-full" />
       <span className="w-full h-full overflow-x-auto">
         <div className="flex w-full h-full flex-shrink-0 items-center">
           {aqi.list &&

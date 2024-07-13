@@ -9,7 +9,7 @@ export default function UserLocationData({
   windDirection,
 }) {
   const [userLocation, setUserLocation] = useState([0, 0]);
-  const [userWeatherData, setUserWeatherData] = useState([]);
+  const [userWeatherData, setUserWeatherData] = useState("");
   const [userAqi, setUserAqi] = useState([]);
   const [userUV, setUserUV] = useState([]);
   //get current user location
@@ -61,11 +61,14 @@ export default function UserLocationData({
   console.log(userLocation);
 
   return (
-    <div className="w-full h-auto  bg-common flex flex-col m-2 p-2">
+    <div className="w-full h-[calc(30%)]  bg-common flex flex-col m-2 p-2">
       {/* user info like location */}
-      <p className="text-xl">Your location</p>
-      <div className="flex flex-col h-full w-full  ">
-        <div className="flex items-center justify-between bg-common w-full h-auto p-4">
+      <span className="w-full h-auto flex flex-col">
+        <p className="text-xl ">Your location</p>
+        <div className="h-bar" />
+      </span>
+      <div className="flex flex-col h-full w-full  pt-4">
+        <div className="flex items-center justify-between bg-common w-full h-[calc(60%)] p-4">
           <span className="flex flex-col justify-center w-1/2 h-full ">
             <p className="text-sm 2xl:text-3xl">
               {userWeatherData?.name}, {userWeatherData?.sys?.country}
@@ -76,15 +79,19 @@ export default function UserLocationData({
             <span className="flex items-center text-left m-1 w-full h-auto  text-xs 2xl:text-sm ">
               <BsWind className="text-xl 2xl:text-2xl m-1" />
               <span>
-                <p>{windDirection(userWeatherData.wind.deg)}</p>
-                <p>{userWeatherData.wind.speed}</p>
+                <p>{windDirection(userWeatherData?.wind?.deg)}</p>
+                <p>{userWeatherData?.wind?.speed}</p>
               </span>
             </span>
           </span>
           <span className="flex flex-col  w-1/2 h-full items-center justify-center">
             <span className="flex items-center w-full h-1/2">
               <img
-                src={`https://openweathermap.org/img/wn/${userWeatherData?.weather[0]?.icon}.png`}
+                src={`https://openweathermap.org/img/wn/${
+                  userWeatherData &&
+                  userWeatherData.weather &&
+                  userWeatherData?.weather[0]?.icon
+                }.png`}
                 alt="weather"
                 className="w-12 h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20"
               />
@@ -96,16 +103,20 @@ export default function UserLocationData({
               </span>
             </span>
             <p className="text-sm 2xl:text-lg">
-              ={userWeatherData?.weather[0]?.main}=
+              =
+              {userWeatherData &&
+                userWeatherData.weather &&
+                userWeatherData?.weather[0]?.main}
+              =
             </p>
           </span>
         </div>
-        <div className="flex w-full h-auto my-2 p-2 items-center justify-between bg-common">
+        <div className="flex w-full h-[calc(40%)] my-2 px-2 items-center justify-between bg-common">
           <span className="w-auto h-full  text-lg xl:text-xl flex items-center justify-center">
             <p>AQI: {userAqi && userAqi.list && userAqi?.list[0]?.main?.aqi}</p>
             <LuLeaf />
           </span>
-          <span className=" w-auto h-full flex justify-center items-center text-center ">
+          <span className=" w-auto h-full text-lg xl:text-xl flex justify-center items-center text-center ">
             <TbUvIndex className="" /> <p> {Math.round(userUV?.result?.uv)}</p>
           </span>
         </div>

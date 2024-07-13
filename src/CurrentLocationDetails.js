@@ -62,7 +62,7 @@ export default function CurrentLocationDetails({
             </span>
           </div>
           {/*  */}
-          <div className="w-0.5 h-full bg-white mx-4" />
+          <div className="w-0.5 h-full bg-white mx-4 p-0.5" />
           {/* */}
           <div className="flex flex-col w-[calc(40%)] h-full text-xs lg:text-sm xl:text-base 2xl:text-lg">
             <div className=" flex justify-between items-center w-full h-2/3">

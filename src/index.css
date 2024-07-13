@@ -9,8 +9,9 @@
     @apply hover:scale-95 duration-100
 }
 .h-bar{
-    @apply w-full h-0.5 bg-white mt-2
+    @apply w-full h-0.5 bg-white mt-2 p-0.5 rounded-full
 }
+
 /* For WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
     width: 8px; /* Change the width here */
