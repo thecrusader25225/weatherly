@@ -12,6 +12,7 @@ import TwentyfourHourForecastDetails from "./TwentyfourHourForecastDetails";
 import Bot from "./LeafletMap";
 import LeafletMap from "./LeafletMap";
 import Navbar from "./Navbar";
+import UserLocationData from "./UserLocationData";
 
 export default function App() {
   const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
@@ -155,6 +156,7 @@ export default function App() {
       block: "start",
       inline: "nearest",
     });
+    // window.scrollBy(0, -16);
   };
 
   // by default
@@ -168,11 +170,10 @@ export default function App() {
   // console.log(timeData);
   // console.log(news);
   return (
-    <div className="w-screen h-screen text-white bg-slate-800">
+    <div className="w-screen h-screen text-white bg-slate-800 flex flex-col">
       <Navbar />
-      <div className=" w-full h-full flex flex-col overflow-y-auto pt-16">
+      <div className=" w-full h-full flex flex-col overflow-y-auto pt-16 pl-4">
         <div ref={appRef} />
-
         {/* search panel + current details */}
         <span className="w-3/4 h-auto flex ">
           {/* search panel */}
@@ -222,7 +223,8 @@ export default function App() {
         />
       </div>
       {/* right SOMETHING panel */}
-      <div className="fixed top-0 right-0 w-1/4 h-full pt-16">
+      <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8">
+        <UserLocationData API_KEY={API_KEY} UV_API_KEY={UV_API_KEY} />
         {/* Weather news display */}
         <WeatherNews news={news} handleLoadNews={handleLoadNews} />
       </div>
