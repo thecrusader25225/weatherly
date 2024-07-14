@@ -44,7 +44,7 @@ export default function App() {
   const [latLon, setLatLon] = useState([0, 0]);
 
   const [bg, setBg] = useState("#");
-
+  const videoRef = useRef(null);
   const fetchGeocodingData = () => {
     setLoading(true);
     fetch(
@@ -162,11 +162,18 @@ export default function App() {
   };
 
   const chooseBg = () => {
-    const id = weatherData?.weather[0].id;
+    const id = weatherData?.weather[0]?.id;
+    const currentTime = twentyfourHourForecast?.hourly[0]?.fxTime
+      .split("T")[1]
+      .split(":")[0];
     if (id > 800) {
       //done
       //clouds
       //all distinct
+      if (currentTime > 6 && currentTime < 19) {
+        //day
+        if (id === 804) setBg("");
+      } else setBg();
     } else if (id === 800) {
       //done
       //clear
@@ -198,6 +205,11 @@ export default function App() {
       //only thunderstorm and thunderstorm with rain
     }
   };
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+  }, []);
 
   // by default
 
@@ -214,8 +226,9 @@ export default function App() {
       <div className="w-screen h-screen text-white  flex flex-col z-10 bg-black bg-opacity-50">
         <Navbar />
         <video
+          ref={videoRef}
           className="absolute top-0 left-0 w-screen h-screen object-cover -z-10"
-          src="/videos/cloudy_seamless_loop.mp4"
+          src="/videos/heavy_cloudy_day.mp4"
           autoPlay
           loop
           muted
