@@ -42,9 +42,10 @@ export default function LeafletMap({
   }, [mapCenter]);
 
   return (
-    <div className="  flex flex-col w-3/4  items-center px-8 my-6 flex-grow bg-common">
-      <p>Select a location to get Weather Data</p>
-      <div className="w-full h-96 m-2 rounded-3xl ">
+    <div className="  flex flex-col w-3/4  p-4 my-6 flex-grow bg-common">
+      <p className="sub-size ">Select a location to get Weather Data</p>
+      <div className="h-bar" />
+      <div className="w-full h-96 m-2 rounded-3xl self-center">
         <MapContainer
           center={mapCenter}
           zoom={zoom}

@@ -11,7 +11,9 @@
 .h-bar{
     @apply w-full h-0.5 bg-white mt-2 p-0.5 rounded-full
 }
-
+.sub-size{
+  @apply text-xl
+}
 /* For WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
     width: 8px; /* Change the width here */

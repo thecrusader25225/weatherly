@@ -21,7 +21,7 @@ export default function FiveDayForecastDetails({
   }, [bulkWeatherData.city, fiveDayForecast]);
   return (
     <div className="flex flex-col bg-common  w-full h-full p-4">
-      <p className="text-2xl">
+      <p className="sub-size">
         5-Day Forecast for {bulkWeatherData.city && bulkWeatherData.city.name}
       </p>
       <div className="h-bar" />
