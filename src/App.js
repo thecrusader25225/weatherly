@@ -76,7 +76,8 @@ export default function App() {
       .then((res) => {
         setWeatherData(res);
         setLoading(false);
-      });
+      })
+      .then(chooseBg());
   };
   const fetchWeathermapDataFor5Days = (lat, lon) => {
     setLoading(true);
@@ -162,78 +163,109 @@ export default function App() {
   };
 
   const chooseBg = () => {
-    const id = weatherData?.weather[0]?.id;
-    const currentTime = twentyfourHourForecast?.hourly[0]?.fxTime
-      .split("T")[1]
-      .split(":")[0];
+    const id =
+      weatherData && weatherData.weather && weatherData?.weather[0]?.id;
+    const currentTime =
+      twentyfourHourForecast &&
+      twentyfourHourForecast.hourly &&
+      twentyfourHourForecast?.hourly[0]?.fxTime.split("T")[1].split(":")[0];
+    const isDay = currentTime > 6 && currentTime < 19;
     if (id > 800) {
-      //done
       //clouds
-      //all distinct
-      if (currentTime > 6 && currentTime < 19) {
+      if (isDay) {
         //day
-        if (id === 804) setBg("");
-      } else setBg();
+        if (id === 801) setBg("light_cloudy_day");
+        else if (id === 804) setBg("overcast_cloudy");
+        else setBg("heavy_cloudy_day");
+      } else {
+        //night
+        if (id === 804) setBg("overcast_cloudy");
+        else setBg("light_cloudy_night");
+      }
     } else if (id === 800) {
-      //done
       //clear
-      //both day night
+      if (isDay) {
+        //day
+        setBg("clear_day");
+      } else {
+        //night
+        setBg("clear_night");
+      }
     } else if (id >= 700) {
       //atmosphere
-      //mist,smoke,haze,fod,squall will have same video-done
-      //dust -done
-      //sand-done
-      //volcanic-done
-      //tornado-done
-      //both day and night
+      if (isDay) {
+        //day
+        if (id === 731) setBg("duststorm");
+        else if (id === 751) setBg("sandstorm");
+        else if (id === 762) setBg("volcano");
+        else if (id === 781) setBg("tornado");
+        else setBg("foggy_day");
+      } else {
+        //night
+        if (id === 731) setBg("duststorm");
+        else if (id === 751) setBg("sandstorm");
+        else if (id === 762) setBg("volcano");
+        else if (id === 781) setBg("tornado");
+        else setBg("foggy_night");
+      }
     } else if (id >= 600) {
-      //done
       //snow
-      //light and heavy
+      if (id === 600 || id === 612 || id === 620) setBg("light_snowfall");
+      else setBg("heavy_snowfall");
     } else if (id >= 500) {
-      //done
       //rain
-      //light and heavy rain
+      if (isDay) {
+        //day
+        if (id === 500 || id === 501 || id === 520) setBg("light_rain_day");
+        else setBg("heavy_rain");
+      } else {
+        //night
+        if (id === 500 || id === 501 || id === 520) setBg("light_rain_night");
+        else setBg("heavy_rain");
+      }
     } else if (id >= 300) {
-      //done
       //drizzle
-      //grouped all to be one
-      //both day night
+      if (isDay) {
+        //day
+        setBg("drizzle_day");
+      } else {
+        //night
+        setBg("drizzle_night");
+      }
     } else if (id >= 200) {
-      //done
       //thunderstorm
-      //only thunderstorm and thunderstorm with rain
+      setBg("thunderstorm");
     }
+    console.log("day: " + isDay);
   };
+  //setting bg video speed
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 0.5;
     }
   }, []);
-
-  // by default
-
   // console.log(locationSearchData);
-  // console.log(weatherData);
+  console.log(weatherData);
   // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
-  console.log(twentyfourHourForecast);
+  // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
   // console.log(news);
+  console.log(bg);
   return (
     <>
-      <div className="w-screen h-screen text-white  flex flex-col z-10 bg-black bg-opacity-50">
-        <Navbar />
+      <Navbar />
+      <div className="w-screen h-screen text-white  flex flex-col z-10 bg-black bg-opacity-50 ">
         <video
           ref={videoRef}
-          className="absolute top-0 left-0 w-screen h-screen object-cover -z-10"
-          src="/videos/heavy_cloudy_day.mp4"
+          className="absolute top-0 left-0 w-screen h-screen object-cover -z-10 "
+          src={`/videos/${bg}.mp4`}
           autoPlay
           loop
           muted
         ></video>
-        <div className=" w-full h-full flex flex-col overflow-y-auto pt-16 pl-4">
+        <div className=" w-full h-full flex flex-col overflow-y-auto pt-[calc(72px)] pl-4">
           <div ref={appRef} />
           {/* search panel + current details */}
           <span className="w-3/4 h-auto flex ">

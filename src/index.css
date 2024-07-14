@@ -16,7 +16,7 @@
 }
 /* For WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
-    width: 8px; /* Change the width here */
+    width: 5px; /* Change the width here */
   }
   
   ::-webkit-scrollbar-thumb {
@@ -33,4 +33,11 @@
     scrollbar-width: thin;
     scrollbar-color: #888 #f1f1f1; /* thumb color, track color */
   }
-  
+  .overflow-y-auto {
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+  }
+
+  .overflow-y-auto::-webkit-scrollbar {
+    display: none;  /* WebKit */
+  }

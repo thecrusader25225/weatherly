@@ -1,5 +1,3 @@
 export default function Navbar() {
-  return (
-    <div className="w-screen h-16 fixed backdrop-blur-lg top-0 left-0"></div>
-  );
+  return <div className="fixed top-0 left-0 w-full h-16 backdrop-blur-lg" />;
 }
