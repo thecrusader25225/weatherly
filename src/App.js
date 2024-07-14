@@ -43,6 +43,8 @@ export default function App() {
 
   const [latLon, setLatLon] = useState([0, 0]);
 
+  const [bg, setBg] = useState("#");
+
   const fetchGeocodingData = () => {
     setLoading(true);
     fetch(
@@ -159,79 +161,126 @@ export default function App() {
     // window.scrollBy(0, -16);
   };
 
+  const chooseBg = () => {
+    const id = weatherData?.weather[0].id;
+    if (id > 800) {
+      //done
+      //clouds
+      //all distinct
+    } else if (id === 800) {
+      //done
+      //clear
+      //both day night
+    } else if (id >= 700) {
+      //atmosphere
+      //mist,smoke,haze,fod,squall will have same video-done
+      //dust -done
+      //sand-done
+      //volcanic-done
+      //tornado-done
+      //both day and night
+    } else if (id >= 600) {
+      //done
+      //snow
+      //light and heavy
+    } else if (id >= 500) {
+      //done
+      //rain
+      //light and heavy rain
+    } else if (id >= 300) {
+      //done
+      //drizzle
+      //grouped all to be one
+      //both day night
+    } else if (id >= 200) {
+      //done
+      //thunderstorm
+      //only thunderstorm and thunderstorm with rain
+    }
+  };
+
   // by default
 
   // console.log(locationSearchData);
   // console.log(weatherData);
   // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
-  // console.log(twentyfourHourForecast);
+  console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
   // console.log(news);
   return (
-    <div className="w-screen h-screen text-white bg-slate-800 flex flex-col">
-      <Navbar />
-      <div className=" w-full h-full flex flex-col overflow-y-auto pt-16 pl-4">
-        <div ref={appRef} />
-        {/* search panel + current details */}
-        <span className="w-3/4 h-auto flex ">
-          {/* search panel */}
-          <SearchPanel
-            setCityName={setCityName}
-            setCountryName={setCountryName}
-            fetchGeocodingData={fetchGeocodingData}
-            locationSearchData={locationSearchData}
-            handleClickLocation={handleClickLocation}
-          />
-          <span className="flex flex-col w-3/4 h-full">
-            {/* details of current location */}
-            <CurrentLocationDetails
-              loading={loading}
+    <>
+      <div className="w-screen h-screen text-white  flex flex-col z-10 bg-black bg-opacity-50">
+        <Navbar />
+        <video
+          className="absolute top-0 left-0 w-screen h-screen object-cover -z-10"
+          src="/videos/cloudy_seamless_loop.mp4"
+          autoPlay
+          loop
+          muted
+        ></video>
+        <div className=" w-full h-full flex flex-col overflow-y-auto pt-16 pl-4">
+          <div ref={appRef} />
+          {/* search panel + current details */}
+          <span className="w-3/4 h-auto flex ">
+            {/* search panel */}
+            <SearchPanel
+              setCityName={setCityName}
+              setCountryName={setCountryName}
+              fetchGeocodingData={fetchGeocodingData}
+              locationSearchData={locationSearchData}
+              handleClickLocation={handleClickLocation}
+            />
+            <span className="flex flex-col w-3/4 h-full">
+              {/* details of current location */}
+              <CurrentLocationDetails
+                loading={loading}
+                weatherData={weatherData}
+                uv={uv}
+                windDirection={windDirection}
+              />
+              {/* AQI details display*/}
+              <AqiDetails weatherData={weatherData} aqi={aqi} />
+            </span>
+          </span>
+
+          {/* middle display panels */}
+          <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2 ">
+            {/* details of 24 hr forecast */}
+            <TwentyfourHourForecastDetails
               weatherData={weatherData}
-              uv={uv}
+              twentyfourHourForecast={twentyfourHourForecast}
+            />
+            {/* details of 5 day forecast */}
+            <FiveDayForecastDetails
+              bulkWeatherData={bulkWeatherData}
+              fiveDayForecast={fiveDayForecast}
               windDirection={windDirection}
             />
-            {/* AQI details display*/}
-            <AqiDetails weatherData={weatherData} aqi={aqi} />
-          </span>
-        </span>
-
-        {/* middle display panels */}
-        <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2 ">
-          {/* details of 24 hr forecast */}
-          <TwentyfourHourForecastDetails
-            weatherData={weatherData}
-            twentyfourHourForecast={twentyfourHourForecast}
-          />
-          {/* details of 5 day forecast */}
-          <FiveDayForecastDetails
-            bulkWeatherData={bulkWeatherData}
-            fiveDayForecast={fiveDayForecast}
-            windDirection={windDirection}
+          </div>
+          <LeafletMap
+            position={latLon}
+            zoom={3}
+            fetchWeathermapData={fetchWeathermapData}
+            fetchWeathermapDataFor5Days={fetchWeathermapDataFor5Days}
+            fetchQWeatherDataFor24Hours={fetchQWeatherDataFor24Hours}
+            fetchAQI={fetchAQI}
+            fetchUV={fetchUV}
+            scrollToTop={scrollToTop}
           />
         </div>
-        <LeafletMap
-          position={latLon}
-          zoom={3}
-          fetchWeathermapData={fetchWeathermapData}
-          fetchWeathermapDataFor5Days={fetchWeathermapDataFor5Days}
-          fetchQWeatherDataFor24Hours={fetchQWeatherDataFor24Hours}
-          fetchAQI={fetchAQI}
-          fetchUV={fetchUV}
-          scrollToTop={scrollToTop}
-        />
+        {/* right SOMETHING panel */}
+        <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8 z-10">
+          <UserLocationData
+            API_KEY={API_KEY}
+            UV_API_KEY={UV_API_KEY}
+            windDirection={windDirection}
+          />
+          {/* Weather news display */}
+          <WeatherNews news={news} handleLoadNews={handleLoadNews} />
+        </div>
       </div>
-      {/* right SOMETHING panel */}
-      <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8">
-        <UserLocationData
-          API_KEY={API_KEY}
-          UV_API_KEY={UV_API_KEY}
-          windDirection={windDirection}
-        />
-        {/* Weather news display */}
-        <WeatherNews news={news} handleLoadNews={handleLoadNews} />
-      </div>
-    </div>
+    </>
   );
 }
