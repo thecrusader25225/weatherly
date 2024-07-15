@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { BsWind } from "react-icons/bs";
-
 export default function FiveDayForecastDetails({
   bulkWeatherData,
   fiveDayForecast,
@@ -26,6 +25,7 @@ export default function FiveDayForecastDetails({
         5-Day Forecast for {bulkWeatherData.city && bulkWeatherData.city.name}
       </p>
       <div className="h-bar" />
+
       <span className="flex flex-col w-full h-full bg-common p-4 my-2 ">
         {groupedForecast &&
           groupedForecast.map((forecast, index) => {

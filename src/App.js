@@ -13,6 +13,7 @@ import Bot from "./LeafletMap";
 import LeafletMap from "./LeafletMap";
 import Navbar from "./Navbar";
 import UserLocationData from "./UserLocationData";
+import Loader from "./Loader";
 
 export default function App() {
   const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
@@ -41,10 +42,7 @@ export default function App() {
     inputLocation: false,
     myLocation: false,
     weather: false,
-    twentyfour: false,
-    fiveDay: false,
     news: false,
-    aqi: false,
   });
 
   const appRef = useRef(null);
@@ -87,7 +85,7 @@ export default function App() {
       });
   };
   const fetchWeathermapDataFor5Days = (lat, lon) => {
-    setLoading((prev) => ({ ...prev, fiveDay: true }));
+    // setLoading((prev) => ({ ...prev, weather: true }));
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     )
@@ -101,18 +99,18 @@ export default function App() {
               forecast.dt_txt.includes("21:00:00")
           )
         );
-        setLoading((prev) => ({ ...prev, fiveDay: false }));
+        // setLoading((prev) => ({ ...prev, weather: false }));
       });
   };
   const fetchAQI = (lat, lon) => {
-    setLoading((prev) => ({ ...prev, aqi: true }));
+    setLoading((prev) => ({ ...prev, weather: true }));
     fetch(
       `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     )
       .then((res) => res.json())
       .then((res) => {
         setAqi(res);
-        setLoading((prev) => ({ ...prev, aqi: false }));
+        setLoading((prev) => ({ ...prev, weather: false }));
       });
   };
   const fetchNews = () => {
@@ -128,14 +126,14 @@ export default function App() {
       });
   };
   const fetchQWeatherDataFor24Hours = (lat, lon) => {
-    setLoading((prev) => ({ ...prev, twentyfour: true }));
+    // setLoading((prev) => ({ ...prev, weather: true }));
     fetch(
       `https://devapi.qweather.com/v7/weather/24h?location=${lon},${lat}&key=${qWeather_API_KEY}`
     )
       .then((res) => res.json())
       .then((res) => {
         setTwentyfourHourForecast(res);
-        setLoading((prev) => ({ ...prev, twentyfour: false }));
+        // setLoading((prev) => ({ ...prev, weather: false }));
       });
   };
   const fetchUV = (lat, lon) => {
@@ -169,7 +167,7 @@ export default function App() {
     setOffset(offset + 10);
   };
   //to fetch initial news
-  // useEffect(() => fetchNews(), [offset]);
+  useEffect(() => fetchNews(), [offset]);
 
   const scrollToTop = () => {
     appRef.current?.scrollIntoView({
@@ -279,15 +277,16 @@ export default function App() {
   // console.log(weatherData);
   // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
-  // console.log(twentyfourHourForecast);
+  console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
   // console.log(news);
   // console.log(bg);
   return (
-    <>
+    <div className="w-screen h-screen text-white ">
       <Navbar />
-      <div className="w-screen h-screen text-white  flex flex-col z-10 bg-black bg-opacity-50 ">
+      <div className="z-10 w-full h-full flex overflow-y-auto bg-black bg-opacity-50">
+        <div ref={appRef} />
         <video
           ref={videoRef}
           className="absolute top-0 left-0 w-screen h-screen object-cover -z-10 "
@@ -296,12 +295,13 @@ export default function App() {
           loop
           muted
         ></video>
-        <div className=" w-full h-full flex flex-col overflow-y-auto pt-[calc(72px)] pl-4">
-          <div ref={appRef} />
+
+        <div className=" w-full h-full flex flex-col  pt-[calc(72px)] pl-4   ">
           {/* search panel + current details */}
           <span className="w-3/4 h-auto flex ">
             {/* search panel */}
             <SearchPanel
+              cityName={cityName}
               setCityName={setCityName}
               setCountryName={setCountryName}
               fetchGeocodingData={fetchGeocodingData}
@@ -318,11 +318,7 @@ export default function App() {
                 loading={loading.weather}
               />
               {/* AQI details display*/}
-              <AqiDetails
-                weatherData={weatherData}
-                aqi={aqi}
-                loading={loading.aqi}
-              />
+              <AqiDetails weatherData={weatherData} aqi={aqi} />
             </span>
           </span>
 
@@ -332,14 +328,12 @@ export default function App() {
             <TwentyfourHourForecastDetails
               weatherData={weatherData}
               twentyfourHourForecast={twentyfourHourForecast}
-              loading={loading.twentyfour}
             />
             {/* details of 5 day forecast */}
             <FiveDayForecastDetails
               bulkWeatherData={bulkWeatherData}
               fiveDayForecast={fiveDayForecast}
               windDirection={windDirection}
-              loading={loading.fiveDay}
             />
           </div>
           <LeafletMap
@@ -353,6 +347,7 @@ export default function App() {
             scrollToTop={scrollToTop}
           />
         </div>
+
         {/* right SOMETHING panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8 z-10 pb-4">
           <UserLocationData
@@ -369,6 +364,6 @@ export default function App() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
