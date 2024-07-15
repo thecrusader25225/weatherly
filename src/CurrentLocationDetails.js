@@ -16,7 +16,7 @@ export default function CurrentLocationDetails({
         <span className="flex flex-row justify-between w-full h-full">
           <div className="flex w-[calc(60%)] items-center justify-center">
             <span className="flex flex-col w-1/3 items-center">
-              <p className="text-base md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-wrap text-center ">
+              <p className="text-base md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-wrap text-center font-bold">
                 {weatherData?.name}, {weatherData?.sys?.country}
               </p>
               <span className="flex items-center justify-center">

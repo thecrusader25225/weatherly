@@ -1,6 +1,6 @@
 export default function WeatherNews({ news, handleLoadNews }) {
   return (
-    <span className="w-full h-[calc(70%)]  bg-common flex flex-col p-4 m-2">
+    <span className="w-full h-[calc(69%)]  bg-common flex flex-col p-4 m-2">
       <p className="sub-size">Weather News</p>
       <div className="h-bar" />
       <span className="flex flex-col overflow-y-auto overflow-x-hidden">

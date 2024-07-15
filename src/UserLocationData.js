@@ -61,7 +61,7 @@ export default function UserLocationData({
   console.log(userLocation);
 
   return (
-    <div className="w-full h-[calc(30%)]  bg-common flex flex-col m-2 p-2">
+    <div className="w-full h-[calc(30%)]  bg-common flex flex-col m-2 p-2 ">
       {/* user info like location */}
       <span className="w-full h-auto flex flex-col">
         <p className="sub-size ">Your location</p>

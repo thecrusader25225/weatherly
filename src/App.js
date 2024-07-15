@@ -76,8 +76,7 @@ export default function App() {
       .then((res) => {
         setWeatherData(res);
         setLoading(false);
-      })
-      .then(chooseBg());
+      });
   };
   const fetchWeathermapDataFor5Days = (lat, lon) => {
     setLoading(true);
@@ -151,7 +150,8 @@ export default function App() {
   const handleLoadNews = () => {
     setOffset(offset + 10);
   };
-  useEffect(() => fetchNews(), [offset]);
+  //to fetch initial news
+  // useEffect(() => fetchNews(), [offset]);
 
   const scrollToTop = () => {
     appRef.current?.scrollIntoView({
@@ -174,67 +174,67 @@ export default function App() {
       //clouds
       if (isDay) {
         //day
-        if (id === 801) setBg("light_cloudy_day");
-        else if (id === 804) setBg("overcast_cloudy");
-        else setBg("heavy_cloudy_day");
+        if (id === 801) return "light_cloudy_day";
+        else if (id === 804) return "overcast_cloudy";
+        else return "heavy_cloudy_day";
       } else {
         //night
-        if (id === 804) setBg("overcast_cloudy");
-        else setBg("light_cloudy_night");
+        if (id === 804) return "overcast_cloudy";
+        else return "light_cloudy_night";
       }
     } else if (id === 800) {
       //clear
       if (isDay) {
         //day
-        setBg("clear_day");
+        return "clear_day";
       } else {
         //night
-        setBg("clear_night");
+        return "clear_night";
       }
     } else if (id >= 700) {
       //atmosphere
       if (isDay) {
         //day
-        if (id === 731) setBg("duststorm");
-        else if (id === 751) setBg("sandstorm");
-        else if (id === 762) setBg("volcano");
-        else if (id === 781) setBg("tornado");
-        else setBg("foggy_day");
+        if (id === 731) return "duststorm";
+        else if (id === 751) return "sandstorm";
+        else if (id === 762) return "volcano";
+        else if (id === 781) return "tornado";
+        else return "foggy_day";
       } else {
         //night
-        if (id === 731) setBg("duststorm");
-        else if (id === 751) setBg("sandstorm");
-        else if (id === 762) setBg("volcano");
-        else if (id === 781) setBg("tornado");
-        else setBg("foggy_night");
+        if (id === 731) return "duststorm";
+        else if (id === 751) return "sandstorm";
+        else if (id === 762) return "volcano";
+        else if (id === 781) return "tornado";
+        else return "foggy_night";
       }
     } else if (id >= 600) {
       //snow
-      if (id === 600 || id === 612 || id === 620) setBg("light_snowfall");
-      else setBg("heavy_snowfall");
+      if (id === 600 || id === 612 || id === 620) return "light_snowfall";
+      else return "heavy_snowfall";
     } else if (id >= 500) {
       //rain
       if (isDay) {
         //day
-        if (id === 500 || id === 501 || id === 520) setBg("light_rain_day");
-        else setBg("heavy_rain");
+        if (id === 500 || id === 501 || id === 520) return "light_rain_day";
+        else return "heavy_rain";
       } else {
         //night
-        if (id === 500 || id === 501 || id === 520) setBg("light_rain_night");
-        else setBg("heavy_rain");
+        if (id === 500 || id === 501 || id === 520) return "light_rain_night";
+        else return "heavy_rain";
       }
     } else if (id >= 300) {
       //drizzle
       if (isDay) {
         //day
-        setBg("drizzle_day");
+        return "drizzle_day";
       } else {
         //night
-        setBg("drizzle_night");
+        return "drizzle_night";
       }
     } else if (id >= 200) {
       //thunderstorm
-      setBg("thunderstorm");
+      return "thunderstorm";
     }
     console.log("day: " + isDay);
   };
@@ -244,6 +244,19 @@ export default function App() {
       videoRef.current.playbackRate = 0.5;
     }
   }, []);
+  //setting setBg
+  useEffect(() => {
+    const newBg = chooseBg();
+    setBg(newBg);
+  }, [weatherData]);
+
+  //setting bg to screen
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
+  }, []);
+
   // console.log(locationSearchData);
   console.log(weatherData);
   // console.log(fiveDayForecast);
@@ -260,7 +273,7 @@ export default function App() {
         <video
           ref={videoRef}
           className="absolute top-0 left-0 w-screen h-screen object-cover -z-10 "
-          src={`/videos/${bg}.mp4`}
+          src={`/videos/${chooseBg()}.mp4`}
           autoPlay
           loop
           muted
@@ -316,7 +329,7 @@ export default function App() {
           />
         </div>
         {/* right SOMETHING panel */}
-        <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8 z-10">
+        <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8 z-10 pb-4">
           <UserLocationData
             API_KEY={API_KEY}
             UV_API_KEY={UV_API_KEY}

@@ -3,10 +3,10 @@ export default function TwentyfourHourForecastDetails({
   twentyfourHourForecast,
 }) {
   return (
-    <div className="flex flex-col bg-common  w-full h-1/3 p-4 mb-2 flex-shrink-0">
+    <div className="flex flex-col bg-common  w-full h-1/3 pt-4 px-8 my-2 flex-shrink-0">
       <p className="sub-size">24-Hour Forecast for {weatherData?.name}</p>
       <div className="h-bar" />
-      <span className="w-full h-full flex p-2 my-2 overflow-x-auto bg-common items-center">
+      <span className="w-full h-full flex p-4 my-2 overflow-x-auto bg-common items-center">
         {twentyfourHourForecast &&
           twentyfourHourForecast.hourly &&
           twentyfourHourForecast?.hourly.map((weather) => (
