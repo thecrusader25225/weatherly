@@ -5,10 +5,10 @@ import { MdLocationPin } from "react-icons/md";
 import AqiDetails from "./AqiDetails";
 import { TbUvIndex } from "react-icons/tb";
 export default function CurrentLocationDetails({
-  loading,
   weatherData,
   uv,
   windDirection,
+  loading,
 }) {
   return (
     <div className="flex w-full h-3/4 p-[calc(2%)] bg-common">

@@ -41,3 +41,11 @@
   .overflow-y-auto::-webkit-scrollbar {
     display: none;  /* WebKit */
   }
+  body, html{
+    min-width: 800px;
+    min-height: 900px;
+  }
+  #root{
+    min-width: 800px;
+    min-height: 900px;
+  }

@@ -1,6 +1,6 @@
 import { MdLocationPin } from "react-icons/md";
 import { LuLeaf } from "react-icons/lu";
-export default function AqiDetails({ weatherData, aqi }) {
+export default function AqiDetails({ weatherData, aqi, loading }) {
   return (
     <div className="w-full h-1/4  bg-common flex px-2 my-2 items-center">
       <div className="w-24 h-16 flex-shrink-0 m-1 text-xl lg:text-xl xl:text-2xl flex items-center justify-center bg-common">

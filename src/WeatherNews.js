@@ -1,4 +1,4 @@
-export default function WeatherNews({ news, handleLoadNews }) {
+export default function WeatherNews({ news, handleLoadNews, loading }) {
   return (
     <span className="w-full h-[calc(69%)]  bg-common flex flex-col p-4 m-2">
       <p className="sub-size">Weather News</p>

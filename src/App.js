@@ -37,7 +37,15 @@ export default function App() {
   const [news, setNews] = useState([]);
   const [offset, setOffset] = useState(0);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    inputLocation: false,
+    myLocation: false,
+    weather: false,
+    twentyfour: false,
+    fiveDay: false,
+    news: false,
+    aqi: false,
+  });
 
   const appRef = useRef(null);
 
@@ -46,7 +54,7 @@ export default function App() {
   const [bg, setBg] = useState("#");
   const videoRef = useRef(null);
   const fetchGeocodingData = () => {
-    setLoading(true);
+    setLoading((prev) => ({ ...prev, inputLocation: true }));
     fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateName},${countryName}&limit=50&appid=${API_KEY}`
     )
@@ -62,24 +70,24 @@ export default function App() {
       )
       .then((bulk) => {
         setLocationSearchData(bulk);
-        setLoading(false);
+        setLoading((prev) => ({ ...prev, inputLocation: false }));
       });
     // .catch((e) => console.error("Error fetching geocoding data"));
   };
 
   const fetchWeathermapData = (lat, lon) => {
-    setLoading(true);
+    setLoading((prev) => ({ ...prev, weather: true }));
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     )
       .then((res) => res.json())
       .then((res) => {
         setWeatherData(res);
-        setLoading(false);
+        setLoading((prev) => ({ ...prev, weather: false }));
       });
   };
   const fetchWeathermapDataFor5Days = (lat, lon) => {
-    setLoading(true);
+    setLoading((prev) => ({ ...prev, fiveDay: true }));
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     )
@@ -93,17 +101,22 @@ export default function App() {
               forecast.dt_txt.includes("21:00:00")
           )
         );
-        setLoading(false);
+        setLoading((prev) => ({ ...prev, fiveDay: false }));
       });
   };
   const fetchAQI = (lat, lon) => {
+    setLoading((prev) => ({ ...prev, aqi: true }));
     fetch(
       `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     )
       .then((res) => res.json())
-      .then((res) => setAqi(res));
+      .then((res) => {
+        setAqi(res);
+        setLoading((prev) => ({ ...prev, aqi: false }));
+      });
   };
   const fetchNews = () => {
+    setLoading((prev) => ({ ...prev, news: true }));
     fetch(
       `https://api.worldnewsapi.com/search-news?api-key=${NEWS_API_KEY}&text=weather&offset=${offset}`
     )
@@ -111,14 +124,19 @@ export default function App() {
       .then((res) => {
         if (res.news && Array.isArray(res.news))
           setNews((prev) => [...prev, ...res.news]);
+        setLoading((prev) => ({ ...prev, news: false }));
       });
   };
   const fetchQWeatherDataFor24Hours = (lat, lon) => {
+    setLoading((prev) => ({ ...prev, twentyfour: true }));
     fetch(
       `https://devapi.qweather.com/v7/weather/24h?location=${lon},${lat}&key=${qWeather_API_KEY}`
     )
       .then((res) => res.json())
-      .then((res) => setTwentyfourHourForecast(res));
+      .then((res) => {
+        setTwentyfourHourForecast(res);
+        setLoading((prev) => ({ ...prev, twentyfour: false }));
+      });
   };
   const fetchUV = (lat, lon) => {
     fetch(`https://api.openuv.io/api/v1/uv?lat=${lat}&lng=${lon}`, {
@@ -258,14 +276,14 @@ export default function App() {
   }, []);
 
   // console.log(locationSearchData);
-  console.log(weatherData);
+  // console.log(weatherData);
   // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
   // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
   // console.log(news);
-  console.log(bg);
+  // console.log(bg);
   return (
     <>
       <Navbar />
@@ -289,17 +307,22 @@ export default function App() {
               fetchGeocodingData={fetchGeocodingData}
               locationSearchData={locationSearchData}
               handleClickLocation={handleClickLocation}
+              loading={loading.inputLocation}
             />
             <span className="flex flex-col w-3/4 h-full">
               {/* details of current location */}
               <CurrentLocationDetails
-                loading={loading}
                 weatherData={weatherData}
                 uv={uv}
                 windDirection={windDirection}
+                loading={loading.weather}
               />
               {/* AQI details display*/}
-              <AqiDetails weatherData={weatherData} aqi={aqi} />
+              <AqiDetails
+                weatherData={weatherData}
+                aqi={aqi}
+                loading={loading.aqi}
+              />
             </span>
           </span>
 
@@ -309,12 +332,14 @@ export default function App() {
             <TwentyfourHourForecastDetails
               weatherData={weatherData}
               twentyfourHourForecast={twentyfourHourForecast}
+              loading={loading.twentyfour}
             />
             {/* details of 5 day forecast */}
             <FiveDayForecastDetails
               bulkWeatherData={bulkWeatherData}
               fiveDayForecast={fiveDayForecast}
               windDirection={windDirection}
+              loading={loading.fiveDay}
             />
           </div>
           <LeafletMap
@@ -334,9 +359,14 @@ export default function App() {
             API_KEY={API_KEY}
             UV_API_KEY={UV_API_KEY}
             windDirection={windDirection}
+            loading={loading.myLocation}
           />
           {/* Weather news display */}
-          <WeatherNews news={news} handleLoadNews={handleLoadNews} />
+          <WeatherNews
+            news={news}
+            handleLoadNews={handleLoadNews}
+            loading={loading.news}
+          />
         </div>
       </div>
     </>

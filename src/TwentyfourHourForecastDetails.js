@@ -1,6 +1,7 @@
 export default function TwentyfourHourForecastDetails({
   weatherData,
   twentyfourHourForecast,
+  loading,
 }) {
   return (
     <div className="flex flex-col bg-common  w-full h-1/3 pt-4 px-8 my-2 flex-shrink-0">

@@ -7,6 +7,7 @@ export default function UserLocationData({
   API_KEY,
   UV_API_KEY,
   windDirection,
+  loading,
 }) {
   const [userLocation, setUserLocation] = useState([0, 0]);
   const [userWeatherData, setUserWeatherData] = useState("");

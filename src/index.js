@@ -7,7 +7,24 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+const MIN_WIDTH = 800;
+const MIN_HEIGHT = 900;
+let resizing = false;
+
+const checkWindowSize = () => {
+  if (!resizing) {
+    resizing = true;
+    if (window.innerWidth < MIN_WIDTH)
+      window.resizeTo(MIN_WIDTH + 1, window.innerHeight);
+    if (window.innerHeight < MIN_HEIGHT)
+      window.resizeTo(window.innerWidth, MIN_HEIGHT + 1);
+    setTimeout(() => {
+      resizing = false;
+    }, 100);
+  }
+};
+
+window.addEventListener("resize", checkWindowSize);
+
+checkWindowSize(); //initial check
 reportWebVitals();

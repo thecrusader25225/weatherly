@@ -5,6 +5,7 @@ export default function FiveDayForecastDetails({
   bulkWeatherData,
   fiveDayForecast,
   windDirection,
+  loading,
 }) {
   const [groupedForecast, setGroupedForecast] = useState([]);
   useEffect(() => {
