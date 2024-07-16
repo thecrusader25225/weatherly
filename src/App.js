@@ -273,7 +273,7 @@ export default function App() {
     }
   }, []);
 
-  // console.log(locationSearchData);
+  console.log(locationSearchData);
   // console.log(weatherData);
   // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
@@ -283,9 +283,9 @@ export default function App() {
   // console.log(news);
   // console.log(bg);
   return (
-    <div className="w-screen h-screen text-white ">
+    <div className="w-screen h-screen text-white overflow-x-hidden">
       <Navbar />
-      <div className="z-10 w-full h-full flex overflow-y-auto bg-black bg-opacity-50">
+      <div className="z-10 w-full h-full flex overflow-y-auto overflow-x-hidden  bg-black bg-opacity-50">
         <div ref={appRef} />
         <video
           ref={videoRef}

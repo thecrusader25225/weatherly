@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
 
 const MIN_WIDTH = 800;
-const MIN_HEIGHT = 900;
+const MIN_HEIGHT = 630;
 let resizing = false;
 
 const checkWindowSize = () => {
