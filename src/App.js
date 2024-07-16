@@ -54,7 +54,7 @@ export default function App() {
   const fetchGeocodingData = () => {
     setLoading((prev) => ({ ...prev, inputLocation: true }));
     fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateName},${countryName}&limit=50&appid=${API_KEY}`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateName},${countryName}&limit=50&appid=${API_KEY}`
     )
       .then((res) => res.json())
       .then((res) =>
