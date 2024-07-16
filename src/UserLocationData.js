@@ -57,7 +57,7 @@ export default function UserLocationData({
     if (userLocation[0] !== 0 && userLocation[1] !== 0) {
       fetchWeathermapData(userLocation[0], userLocation[1]);
       fetchAQI(userLocation[0], userLocation[1]);
-      // fetchUV(userLocation[0], userLocation[1]);
+      fetchUV(userLocation[0], userLocation[1]);
     }
   }, [userLocation]);
   // console.log(userLocation);
