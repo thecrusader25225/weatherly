@@ -18,7 +18,7 @@ export default function UserLocationData({
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        console.log(pos);
+        // console.log(pos);
         setUserLocation([pos.coords.latitude, pos.coords.longitude]);
       });
     } else {
@@ -60,7 +60,7 @@ export default function UserLocationData({
       // fetchUV(userLocation[0], userLocation[1]);
     }
   }, [userLocation]);
-  console.log(userLocation);
+  // console.log(userLocation);
 
   return (
     <div className="w-full h-[calc(30%)]  bg-common flex flex-col m-2 p-2 ">

@@ -6,7 +6,7 @@
     @apply bg-white bg-opacity-[calc(0.03)] backdrop-blur-sm rounded-3xl
 }
 .button-common{
-    @apply hover:scale-95 duration-100
+    @apply hover:scale-95 duration-200 will-change-transform transition-transform transform
 }
 .h-bar{
     @apply w-full h-0.5 bg-white mt-2 p-0.5 rounded-full

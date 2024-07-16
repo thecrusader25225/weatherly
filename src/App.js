@@ -297,7 +297,7 @@ export default function App() {
         ></video>
 
         <div className=" w-full h-full flex flex-col  pt-[calc(72px)] pl-4   ">
-          {/* search panel + current details */}
+          {/* top display panels */}
           <span className="w-3/4 h-auto flex ">
             {/* search panel */}
             <SearchPanel
@@ -323,7 +323,7 @@ export default function App() {
           </span>
 
           {/* middle display panels */}
-          <div className="flex flex-col w-3/4 h-auto ml-2 pr-2 py-2 ">
+          <div className="flex flex-col w-3/4 h-auto  ml-2 pr-2  ">
             {/* details of 24 hr forecast */}
             <TwentyfourHourForecastDetails
               weatherData={weatherData}
@@ -335,21 +335,23 @@ export default function App() {
               fiveDayForecast={fiveDayForecast}
               windDirection={windDirection}
             />
+            {/* leaflet map */}
+            <LeafletMap
+              position={latLon}
+              zoom={3}
+              fetchWeathermapData={fetchWeathermapData}
+              fetchWeathermapDataFor5Days={fetchWeathermapDataFor5Days}
+              fetchQWeatherDataFor24Hours={fetchQWeatherDataFor24Hours}
+              fetchAQI={fetchAQI}
+              fetchUV={fetchUV}
+              scrollToTop={scrollToTop}
+            />
           </div>
-          <LeafletMap
-            position={latLon}
-            zoom={3}
-            fetchWeathermapData={fetchWeathermapData}
-            fetchWeathermapDataFor5Days={fetchWeathermapDataFor5Days}
-            fetchQWeatherDataFor24Hours={fetchQWeatherDataFor24Hours}
-            fetchAQI={fetchAQI}
-            fetchUV={fetchUV}
-            scrollToTop={scrollToTop}
-          />
         </div>
 
-        {/* right SOMETHING panel */}
+        {/* right display panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8 z-10 pb-4">
+          {/* user location data */}
           <UserLocationData
             API_KEY={API_KEY}
             UV_API_KEY={UV_API_KEY}

@@ -6,9 +6,7 @@ import {
   Popup,
   useMapEvents,
 } from "react-leaflet";
-import L from "leaflet";
 import "leaflet/dist/leaflet.css"; // Ensure Leaflet's CSS is imported
-import { click } from "@testing-library/user-event/dist/click";
 
 export default function LeafletMap({
   position,
@@ -33,7 +31,7 @@ export default function LeafletMap({
   }
 
   useEffect(() => {
-    console.log(mapCenter);
+    // console.log(mapCenter);
     fetchWeathermapData(mapCenter[0], mapCenter[1]);
     fetchWeathermapDataFor5Days(mapCenter[0], mapCenter[1]);
     fetchQWeatherDataFor24Hours(mapCenter[0], mapCenter[1]);
@@ -42,7 +40,7 @@ export default function LeafletMap({
   }, [mapCenter]);
 
   return (
-    <div className="  flex flex-col w-3/4  p-4 my-6 flex-grow bg-common">
+    <div className="  flex flex-col w-full h-full p-4 my-2 bg-common">
       <p className="sub-size ">Select a location to get Weather Data</p>
       <div className="h-bar" />
       <div className="w-full h-96 m-2 rounded-3xl self-center">

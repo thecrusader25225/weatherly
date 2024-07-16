@@ -14,11 +14,11 @@ export default function WeatherNews({ news, handleLoadNews, loading }) {
             news.length > 0 &&
             news.map((news, index) => (
               <a href={news.url} target="_blank" rel="noreferrer">
-                <div className="p-4 m-2 bg-common button-common flex flex-col">
+                <div className="p-4 m-2 bg-common flex flex-col">
                   <p className="text-sm text-right text-slate-400">
                     Published on {news.publish_date}
                   </p>
-                  <img src={news.image} alt={index} className="rounded-3xl" />
+                  <img src={news.image} alt={index} className="rounded-xl" />
                   <p className="bg-common p-2 my-2 break-all">
                     {news.title && news.title.length > 200
                       ? news.title.substring(0, 201) + "..."
