@@ -105,7 +105,7 @@ export default function App() {
   const fetchAQI = (lat, lon) => {
     setLoading((prev) => ({ ...prev, weather: true }));
     fetch(
-      `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -273,7 +273,7 @@ export default function App() {
     }
   }, []);
 
-  console.log(locationSearchData);
+  // console.log(locationSearchData);
   // console.log(weatherData);
   // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
