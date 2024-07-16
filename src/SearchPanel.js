@@ -34,13 +34,13 @@ export default function SearchPanel({
           Fetch
         </button>
       </span>
-      <span className="flex p-2 px-4 justify-center">
+      {/* <span className="flex p-2 px-4 justify-center">
         <span className="h-bar inline" />
         <CgClose
           className="inline text-xl cursor-pointer"
           onClick={() => (locationSearchData.length = 0)}
         />
-      </span>
+      </span> */}
       {loading ? (
         <div className="w-full h-full flex justify-center items-center">
           <Loader />
