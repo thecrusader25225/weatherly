@@ -283,7 +283,7 @@ export default function App() {
   // console.log(news);
   // console.log(bg);
   return (
-    <div className="w-screen h-screen text-white overflow-x-hidden">
+    <div className="w-screen h-screen text-white overflow-hidden">
       <Navbar />
       <div className="z-10 w-full h-full flex overflow-y-auto overflow-x-hidden  bg-black bg-opacity-50">
         <div ref={appRef} />
