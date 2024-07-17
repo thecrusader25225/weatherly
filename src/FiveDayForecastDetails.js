@@ -52,9 +52,9 @@ export default function FiveDayForecastDetails({
                         {Math.round(day?.main?.temp - 273.15)}℃
                       </p>
                       <span className="mx-2 flex w-full items-center">
-                        <BsWind />
+                        <BsWind className="m-1" />
                         <span className="flex flex-col justify-center items-center text-xs">
-                          <p>{day?.wind.speed}</p>
+                          <p>{day?.wind.speed}m/s</p>
                           <p>{windDirection(day?.wind.deg)}</p>
                         </span>
                       </span>

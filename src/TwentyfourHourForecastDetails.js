@@ -1,4 +1,5 @@
 import NoResults from "./NoResults";
+import { BsWind } from "react-icons/bs";
 
 export default function TwentyfourHourForecastDetails({
   weatherData,
@@ -21,8 +22,11 @@ export default function TwentyfourHourForecastDetails({
                     </span>
                     <p className={`qi-${weather?.icon}`}></p>
                   </span>
-                  <span className="text-center">
-                    <p>{weather?.windSpeed}m/s</p>
+                  <span className="text-center flex flex-col">
+                    <span className="flex">
+                      <BsWind />
+                      <p className="text-xs">{weather?.windSpeed}m/s</p>
+                    </span>
                     <p>{weather?.fxTime.split("T")[1].split("+")[0]}</p>
                   </span>
                 </span>
