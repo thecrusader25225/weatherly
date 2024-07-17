@@ -18,15 +18,17 @@ Weatherly is a React-based weather application that provides real-time weather u
 ## Description
 
 ### Current Weather Display
-- Displays current weather conditions including temperature, humidity, wind speed, and weather description.
-- Provides dynamic backgrounds that change based on weather conditions (e.g., sunny, rainy, cloudy).
+- Displays current weather conditions including temperature, pressure, humidity, wind speed, wind direction, AQI, UV and weather description.
+- Provides dynamic backgrounds that change based on weather conditions (e.g., sunny, rainy, cloudy), as well as time of day (e.g., day and night).
+- Uses openweathermap.org APIs for Current Weather forecast
+- Uses geocoding API 
 
 ### Hourly and Daily Forecasts
 - Shows detailed hourly forecasts with temperature, weather icons, and wind speed.
 - Offers daily forecasts for upcoming days, allowing users to plan ahead.
 
 ### Location-Based Weather
-- Uses geolocation to fetch weather data based on the user's current location.
+- Uses geolocation API to fetch weather data based on the user's current location.
 - Allows users to search for weather information in different locations by entering a city name or zip code.
 
 ### Interactive Map Integration
@@ -34,15 +36,16 @@ Weatherly is a React-based weather application that provides real-time weather u
 - Displays markers and pop-ups with weather details for selected locations.
 
 ### Additional Weather Data
-- Integrates with QWeather API for detailed weather information, including UV index and air quality data.
+- Integrates with qweather.com API for detailed weather information, including UV index and air quality data.
 - Provides icons from qWeather Icons for various weather conditions to enhance visual representation.
+- Provides AQI data from api.openuv.io
 
 ### User Customization
 - Supports dark mode and light mode toggles for personalized viewing preferences.
 - Ensures uniform styling across pages to maintain consistency in user experience.
 
 ### News Integration
-- Fetches and displays news articles related to weather using the Newsdata.io API, keeping users informed about weather-related news.
+- Fetches and displays news articles related to weather using the worldnewsapi.com API, keeping users informed about weather-related news.
 
 
 ## Installation
