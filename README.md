@@ -11,6 +11,7 @@ Weatherly is a React-based weather application that provides real-time weather u
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
+- [Future Enhancements](#enhancements)
 - [License](#license)
 
 
@@ -42,13 +43,6 @@ Weatherly is a React-based weather application that provides real-time weather u
 
 ### News Integration
 - Fetches and displays news articles related to weather using the Newsdata.io API, keeping users informed about weather-related news.
-
-## Usage
-- Users can access Weatherly by visiting [Vercel Deployment Link](https://weatherly.vercel.app/).
-- Follow the installation steps outlined in the README.md to set up the application locally for development or deployment.
-
-## Future Enhancements
-- Planned features include adding more interactive elements, improving data visualization, and enhancing accessibility features to cater to a broader audience.
 
 
 ## Installation
@@ -118,8 +112,10 @@ To install the project, follow these steps:
     http://localhost:3000
     ```
 
-This section now focuses specifically on how to run the application and access it locally once it's set up and dependencies are installed.
+### Alternatively,
 
+**Users can access Weatherly by visiting [Vercel Deployment Link](https://weatherly-theta.vercel.app/).**
+    
 
 ## Features
 
@@ -160,6 +156,17 @@ To contribute to this project, follow these steps:
 5. **Create a pull request.**
 
 
+## Future Enhancements
+
+- Planned features include adding more interactive elements, improving data visualization, and enhancing accessibility features to cater to a broader audience.
+
+
 ## License
 
+
+---
+
+Thank you for exploring Weatherly! We hope you find it useful and enjoyable. If you have any questions, feedback, or would like to contribute, please don't hesitate to reach out at [thecrusader.25225@gmail.com](mailto:thecrusader.25225@gmail.com). Happy coding!
+
+---
 
