@@ -1,4 +1,3 @@
-import { MdLocationPin } from "react-icons/md";
 import { LuLeaf } from "react-icons/lu";
 import Loader from "./Loader";
 import NoResults from "./NoResults";

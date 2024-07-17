@@ -1,8 +1,5 @@
 import { BsSunrise, BsSunset, BsWind } from "react-icons/bs";
-import { FaLocationPin } from "react-icons/fa6";
-import { LuLeaf } from "react-icons/lu";
 import { MdLocationPin } from "react-icons/md";
-import AqiDetails from "./AqiDetails";
 import { TbUvIndex } from "react-icons/tb";
 
 import Loader from "./Loader";

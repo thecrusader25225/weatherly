@@ -1,7 +1,6 @@
-import { FcUpLeft } from "react-icons/fc";
 import NoResults from "./NoResults";
 import { BsWind } from "react-icons/bs";
-import { BiArrowToRight, BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { useRef } from "react";
 
 export default function TwentyfourHourForecastDetails({

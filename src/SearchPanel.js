@@ -1,6 +1,4 @@
-import { useState } from "react";
 import Loader from "./Loader";
-import { CgClose } from "react-icons/cg";
 import NoResults from "./NoResults";
 
 export default function SearchPanel({

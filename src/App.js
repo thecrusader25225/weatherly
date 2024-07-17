@@ -1,19 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { CiCloudDrizzle } from "react-icons/ci";
-import { GiSun } from "react-icons/gi";
 import SearchPanel from "./SearchPanel";
 import CurrentLocationDetails from "./CurrentLocationDetails";
 import FiveDayForecastDetails from "./FiveDayForecastDetails";
-import { FaLocationPin } from "react-icons/fa6";
-import { MdLocationPin } from "react-icons/md";
 import WeatherNews from "./WeatherNews";
 import AqiDetails from "./AqiDetails";
 import TwentyfourHourForecastDetails from "./TwentyfourHourForecastDetails";
-import Bot from "./LeafletMap";
 import LeafletMap from "./LeafletMap";
 import Navbar from "./Navbar";
 import UserLocationData from "./UserLocationData";
-import Loader from "./Loader";
 
 export default function App() {
   const API_KEY = process.env.REACT_APP_API_KEY;
