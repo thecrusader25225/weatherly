@@ -16,7 +16,39 @@ Weatherly is a React-based weather application that provides real-time weather u
 
 ## Description
 
-Weatherly is a weather application that uses multiple APIs to fetch current weather data, 24-hour forecasts, and other related information.
+### Current Weather Display
+- Displays current weather conditions including temperature, humidity, wind speed, and weather description.
+- Provides dynamic backgrounds that change based on weather conditions (e.g., sunny, rainy, cloudy).
+
+### Hourly and Daily Forecasts
+- Shows detailed hourly forecasts with temperature, weather icons, and wind speed.
+- Offers daily forecasts for upcoming days, allowing users to plan ahead.
+
+### Location-Based Weather
+- Uses geolocation to fetch weather data based on the user's current location.
+- Allows users to search for weather information in different locations by entering a city name or zip code.
+
+### Interactive Map Integration
+- Includes a map feature using the Leaflet library, enabling users to click on locations to fetch weather data.
+- Displays markers and pop-ups with weather details for selected locations.
+
+### Additional Weather Data
+- Integrates with QWeather API for detailed weather information, including UV index and air quality data.
+- Provides icons from qWeather Icons for various weather conditions to enhance visual representation.
+
+### User Customization
+- Supports dark mode and light mode toggles for personalized viewing preferences.
+- Ensures uniform styling across pages to maintain consistency in user experience.
+
+### News Integration
+- Fetches and displays news articles related to weather using the Newsdata.io API, keeping users informed about weather-related news.
+
+## Usage
+- Users can access Weatherly by visiting [Vercel Deployment Link](https://weatherly.vercel.app/).
+- Follow the installation steps outlined in the README.md to set up the application locally for development or deployment.
+
+## Future Enhancements
+- Planned features include adding more interactive elements, improving data visualization, and enhancing accessibility features to cater to a broader audience.
 
 
 ## Installation
