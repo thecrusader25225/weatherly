@@ -11,7 +11,7 @@ Weatherly is a React-based weather application that provides real-time weather u
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
-- [Future Enhancements](#enhancements)
+- [Future Enhancements](#future-enhancements)
 - [License](#license)
 
 
