@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsWind } from "react-icons/bs";
+import NoResults from "./NoResults";
 export default function FiveDayForecastDetails({
   bulkWeatherData,
   fiveDayForecast,
@@ -27,7 +28,7 @@ export default function FiveDayForecastDetails({
       <div className="h-bar" />
 
       <span className="flex flex-col w-full h-full bg-common p-4 my-2 ">
-        {groupedForecast &&
+        {groupedForecast ? (
           groupedForecast.map((forecast, index) => {
             const { day, night } = forecast;
             return (
@@ -98,7 +99,10 @@ export default function FiveDayForecastDetails({
                 </div>
               </div>
             );
-          })}
+          })
+        ) : (
+          <NoResults />
+        )}
       </span>
     </div>
   );

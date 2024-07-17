@@ -6,6 +6,7 @@ import AqiDetails from "./AqiDetails";
 import { TbUvIndex } from "react-icons/tb";
 
 import Loader from "./Loader";
+import NoResults from "./NoResults";
 export default function CurrentLocationDetails({
   weatherData,
   uv,
@@ -94,7 +95,7 @@ export default function CurrentLocationDetails({
                   <BsWind className="text-3xl m-1" />
                   <span>
                     <p>{windDirection(weatherData.wind.deg)}</p>
-                    <p>{weatherData.wind.speed}</p>
+                    <p>{weatherData.wind.speed} m/s</p>
                   </span>
                 </span>
               </div>
@@ -116,7 +117,7 @@ export default function CurrentLocationDetails({
           )}
         </span>
       ) : (
-        <p>Search for a location</p>
+        <NoResults />
       )}
     </div>
   );

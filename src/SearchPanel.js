@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Loader from "./Loader";
 import { CgClose } from "react-icons/cg";
+import NoResults from "./NoResults";
 
 export default function SearchPanel({
   cityName,
@@ -34,18 +35,11 @@ export default function SearchPanel({
           Fetch
         </button>
       </span>
-      {/* <span className="flex p-2 px-4 justify-center">
-        <span className="h-bar inline" />
-        <CgClose
-          className="inline text-xl cursor-pointer"
-          onClick={() => (locationSearchData.length = 0)}
-        />
-      </span> */}
       {loading ? (
         <div className="w-full h-full flex justify-center items-center">
           <Loader />
         </div>
-      ) : (
+      ) : locationSearchData.length !== 0 ? (
         <div className="w-full h-auto flex flex-col overflow-y-auto">
           {locationSearchData.map((location, index) => (
             <>
@@ -79,6 +73,8 @@ export default function SearchPanel({
             </>
           ))}
         </div>
+      ) : (
+        <NoResults />
       )}
     </div>
   );
