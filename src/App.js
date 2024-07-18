@@ -10,10 +10,10 @@ import Navbar from "./Navbar";
 import UserLocationData from "./UserLocationData";
 
 export default function App() {
-  const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
-  const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
-  const qWeather_API_KEY = process.env.REACT_APP_qWeather_API_KEY;
-  const UV_API_KEY = process.env.REACT_APP_UV_API_KEY;
+  const OPENWEATHER_API_KEY = "b82565c34cea20f860e1531e0d3a4597";
+  const NEWS_API_KEY = "bd230653251844188335683c4c1c7814";
+  const qWeather_API_KEY = "9000babd99dc467cac785cabbc89dbef";
+  const UV_API_KEY = "openuv-150uamrlyj0m5jv-io";
 
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
@@ -48,14 +48,14 @@ export default function App() {
   const fetchGeocodingData = () => {
     setLoading((prev) => ({ ...prev, inputLocation: true }));
     fetch(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateName},${countryName}&limit=50&appid=${API_KEY}`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateName},${countryName}&limit=50&appid=${OPENWEATHER_API_KEY}`
     )
       .then((res) => res.json())
       .then((res) =>
         Promise.all(
           res.map((location) =>
             fetch(
-              `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`
+              `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${OPENWEATHER_API_KEY}`
             ).then((res) => res.json())
           )
         )
@@ -70,7 +70,7 @@ export default function App() {
   const fetchWeathermapData = (lat, lon) => {
     setLoading((prev) => ({ ...prev, weather: true }));
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -81,7 +81,7 @@ export default function App() {
   const fetchWeathermapDataFor5Days = (lat, lon) => {
     // setLoading((prev) => ({ ...prev, weather: true }));
     fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -104,7 +104,7 @@ export default function App() {
   const fetchAQI = (lat, lon) => {
     setLoading((prev) => ({ ...prev, weather: true }));
     fetch(
-      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}`
     )
       .then((res) => res.json())
       .then((res) => {
