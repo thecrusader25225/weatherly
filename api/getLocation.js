@@ -1,6 +1,4 @@
-const fetch = require("node-fetch");
-
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   const { cityName, stateName, countryName } = req.query;
   const API_KEY = process.env.OPENWEATHER_API_KEY;
 
@@ -24,4 +22,4 @@ module.exports = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Error fetching geocoding data" });
   }
-};
+}

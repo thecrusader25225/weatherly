@@ -48,30 +48,17 @@ export default function App() {
   const fetchGeocodingData = () => {
     setLoading((prev) => ({ ...prev, inputLocation: true }));
     fetch(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateName},${countryName}&limit=50&appid=${API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((res) =>
-        Promise.all(
-          res.map((location) =>
-            fetch(
-              `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`
-            ).then((res) => res.json())
-          )
-        )
-      )
-      .then((bulk) => {
-        setLocationSearchData(bulk);
-        setLoading((prev) => ({ ...prev, inputLocation: false }));
-      });
+      `/api/getLocation?cityName=${cityName}&stateName=${stateName}&countryName=${countryName} `
+    ).then((bulk) => {
+      setLocationSearchData(bulk);
+      setLoading((prev) => ({ ...prev, inputLocation: false }));
+    });
     // .catch((e) => console.error("Error fetching geocoding data"));
   };
 
   const fetchWeathermapData = (lat, lon) => {
     setLoading((prev) => ({ ...prev, weather: true }));
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    )
+    fetch(`/api/getWeather?lat=${lat}&lon=${lon}`)
       .then((res) => res.json())
       .then((res) => {
         setWeatherData(res);
@@ -79,10 +66,7 @@ export default function App() {
       });
   };
   const fetchWeathermapDataFor5Days = (lat, lon) => {
-    // setLoading((prev) => ({ ...prev, weather: true }));
-    fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    )
+    fetch(`/api/getFiveDay?lat=${lat}&lon=${lon}`)
       .then((res) => res.json())
       .then((res) => {
         if (res && res.list) {
@@ -103,9 +87,7 @@ export default function App() {
   };
   const fetchAQI = (lat, lon) => {
     setLoading((prev) => ({ ...prev, weather: true }));
-    fetch(
-      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    )
+    fetch(`/api/getAqi?lat=${lat}&lon=${lon}`)
       .then((res) => res.json())
       .then((res) => {
         setAqi(res);
@@ -114,9 +96,7 @@ export default function App() {
   };
   const fetchNews = () => {
     setLoading((prev) => ({ ...prev, news: true }));
-    fetch(
-      `https://api.worldnewsapi.com/search-news?api-key=${NEWS_API_KEY}&text=weather&offset=${offset}`
-    )
+    fetch(`/api/getNews?offset=${offset}`)
       .then((res) => res.json())
       .then((res) => {
         if (res.news && Array.isArray(res.news))
@@ -125,22 +105,14 @@ export default function App() {
       });
   };
   const fetchQWeatherDataFor24Hours = (lat, lon) => {
-    // setLoading((prev) => ({ ...prev, weather: true }));
-    fetch(
-      `https://devapi.qweather.com/v7/weather/24h?location=${lon},${lat}&key=${qWeather_API_KEY}`
-    )
+    fetch(`/api/getTwentyfour?lat=${lat}&lon=${lon}`)
       .then((res) => res.json())
       .then((res) => {
         setTwentyfourHourForecast(res);
-        // setLoading((prev) => ({ ...prev, weather: false }));
       });
   };
   const fetchUV = (lat, lon) => {
-    fetch(`https://api.openuv.io/api/v1/uv?lat=${lat}&lng=${lon}`, {
-      headers: {
-        "x-access-token": UV_API_KEY,
-      },
-    })
+    fetch(`/api/getUv?lat=${lat}&lon=${lon}`)
       .then((res) => res.json())
       .then((res) => setUv(res));
   };
@@ -351,12 +323,12 @@ export default function App() {
         {/* right display panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8 z-10 pb-4">
           {/* user location data */}
-          <UserLocationData
+          {/* <UserLocationData
             API_KEY={API_KEY}
             UV_API_KEY={UV_API_KEY}
             windDirection={windDirection}
             loading={loading.myLocation}
-          />
+          /> */}
           {/* Weather news display */}
           <WeatherNews
             news={news}

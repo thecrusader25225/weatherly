@@ -1,6 +1,4 @@
-const fetch = require("node-fetch");
-
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   const { lat, lon } = req.query;
   const API_KEY = process.env.OPENWEATHER_API_KEY;
 
@@ -13,4 +11,4 @@ module.exports = async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: "Unable to fetch current weather data" });
   }
-};
+}
