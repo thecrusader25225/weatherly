@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     // Resolve all weather data fetches
     const weatherData = await Promise.all(weatherPromises);
 
-    await res.status(200).json(weatherData);
+    res.status(200).json(weatherData);
   } catch (error) {
     res.status(500).json({ error: "Error fetching geocoding data" });
   }

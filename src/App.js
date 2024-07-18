@@ -244,10 +244,10 @@ export default function App() {
     }
   }, []);
 
-  console.log(locationSearchData);
+  // console.log(locationSearchData);
   // console.log(weatherData);
   // console.log(fiveDayForecast);
-  console.log(bulkWeatherData);
+  // console.log(bulkWeatherData);
   // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);

@@ -10,6 +10,7 @@ export default function SearchPanel({
   handleClickLocation,
   loading,
 }) {
+  console.log(locationSearchData);
   return (
     <div className="flex flex-col w-1/4 h-full bg-common mx-2 py-4">
       <span className="flex w-full h-8 px-2">
