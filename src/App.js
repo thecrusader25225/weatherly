@@ -10,10 +10,10 @@ import Navbar from "./Navbar";
 import UserLocationData from "./UserLocationData";
 
 export default function App() {
-  const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
-  const NEWS_API_KEY = "bd230653251844188335683c4c1c7814";
-  const qWeather_API_KEY = "9000babd99dc467cac785cabbc89dbef";
-  const UV_API_KEY = "openuv-150uamrlyj0m5jv-io";
+  const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
+  const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
+  const qWeather_API_KEY = process.env.REACT_APP_qWeather_API_KEY;
+  const UV_API_KEY = process.env.REACT_APP_UV_API_KEY;
 
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
@@ -273,10 +273,10 @@ export default function App() {
   }, []);
 
   // console.log(locationSearchData);
-  // console.log(weatherData);
+  console.log(weatherData);
   // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
-  console.log(twentyfourHourForecast);
+  // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
   // console.log(news);
