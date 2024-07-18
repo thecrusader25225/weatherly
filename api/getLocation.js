@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 export default async function handler(req, res) {
   const { cityName, stateName, countryName } = req.query;
   const API_KEY = process.env.OPENWEATHER_API_KEY;
