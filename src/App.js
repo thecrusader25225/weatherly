@@ -49,10 +49,12 @@ export default function App() {
     setLoading((prev) => ({ ...prev, inputLocation: true }));
     fetch(
       `/api/getLocation?cityName=${cityName}&stateName=${stateName}&countryName=${countryName} `
-    ).then((bulk) => {
-      setLocationSearchData(bulk);
-      setLoading((prev) => ({ ...prev, inputLocation: false }));
-    });
+    )
+      .then((res) => res.json())
+      .then((bulk) => {
+        setLocationSearchData(bulk);
+        setLoading((prev) => ({ ...prev, inputLocation: false }));
+      });
     // .catch((e) => console.error("Error fetching geocoding data"));
   };
 
