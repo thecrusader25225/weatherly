@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const { lat, lon } = req.query;
-  const API_KEY = process.env.qWEATHER_API_KEY;
+  const API_KEY = process.env.QWEATHER_API_KEY;
 
   try {
     const response = await fetch(
