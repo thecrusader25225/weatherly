@@ -323,12 +323,10 @@ export default function App() {
         {/* right display panel */}
         <div className="fixed top-0 right-0 w-1/4 h-full pt-16 pr-8 z-10 pb-4">
           {/* user location data */}
-          {/* <UserLocationData
-            API_KEY={API_KEY}
-            UV_API_KEY={UV_API_KEY}
+          <UserLocationData
             windDirection={windDirection}
             loading={loading.myLocation}
-          /> */}
+          />
           {/* Weather news display */}
           <WeatherNews
             news={news}
