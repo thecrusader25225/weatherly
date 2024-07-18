@@ -10,10 +10,10 @@ import Navbar from "./Navbar";
 import UserLocationData from "./UserLocationData";
 
 export default function App() {
-  const API_KEY = process.env.REACT_APP_API_KEY;
-  const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
-  const qWeather_API_KEY = process.env.REACT_APP_qWeather_API_KEY;
-  const UV_API_KEY = process.env.REACT_APP_UV_API_KEY;
+  const API_KEY = "b82565c34cea20f860e1531e0d3a4597";
+  const NEWS_API_KEY = "bd230653251844188335683c4c1c7814";
+  const qWeather_API_KEY = "9000babd99dc467cac785cabbc89dbef";
+  const UV_API_KEY = "openuv-150uamrlyj0m5jv-io";
 
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
@@ -85,15 +85,20 @@ export default function App() {
     )
       .then((res) => res.json())
       .then((res) => {
-        setBulkWeatherData(res);
-        setFiveDayForecast(
-          res.list.filter(
-            (forecast) =>
-              forecast.dt_txt.includes("09:00:00") ||
-              forecast.dt_txt.includes("21:00:00")
-          )
-        );
-        // setLoading((prev) => ({ ...prev, weather: false }));
+        if (res && res.list) {
+          setBulkWeatherData(res);
+          setFiveDayForecast(
+            res.list.filter(
+              (forecast) =>
+                forecast.dt_txt.includes("09:00:00") ||
+                forecast.dt_txt.includes("21:00:00")
+            )
+          );
+        } else {
+          console.log("Response struc is not as expected: ", res);
+          setBulkWeatherData([]);
+          setFiveDayForecast([]);
+        }
       });
   };
   const fetchAQI = (lat, lon) => {
