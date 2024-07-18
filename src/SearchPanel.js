@@ -39,7 +39,7 @@ export default function SearchPanel({
         </div>
       ) : locationSearchData.length !== 0 ? (
         <div className="w-full h-auto flex flex-col overflow-y-auto">
-          {locationSearchData &&
+          {Array.isArray(locationSearchData) &&
             locationSearchData.map((location, index) => (
               <>
                 <button
