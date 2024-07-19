@@ -4,7 +4,7 @@ import "./SearchButton.css";
 export default function SearchButton({ cityName, fetchGeocodingData }) {
   return (
     <div
-      className="button cursor-pointer"
+      className="button cursor-pointer "
       onClick={cityName.length !== 0 ? fetchGeocodingData : null}
     >
       <div className="button-wrapper">

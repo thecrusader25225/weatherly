@@ -15,7 +15,7 @@ export default function SearchPanel({
   console.log(locationSearchData);
   return (
     <div className="flex flex-col w-1/4 h-full bg-common mx-2 py-4">
-      <span className="flex w-full h-8 px-2 items-center justify-between">
+      <span className="flex w-full h-8 px-2 items-center justify-between mb-1">
         <Input
           setCityName={setCityName}
           setCountryName={setCountryName}
