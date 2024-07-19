@@ -5,12 +5,7 @@ import { BsWind } from "react-icons/bs";
 import Loader from "./Loader";
 import NoResults from "./NoResults";
 
-export default function UserLocationData({
-  API_KEY,
-  UV_API_KEY,
-  windDirection,
-  loading,
-}) {
+export default function UserLocationData({ windDirection, loading }) {
   const [userLocation, setUserLocation] = useState([0, 0]);
   const [userWeatherData, setUserWeatherData] = useState("");
   const [userAqi, setUserAqi] = useState([]);
@@ -19,7 +14,6 @@ export default function UserLocationData({
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        // console.log(pos);
         setUserLocation([pos.coords.latitude, pos.coords.longitude]);
       });
     } else {
@@ -27,9 +21,7 @@ export default function UserLocationData({
     }
   };
   const fetchWeathermapData = (lat, lon) => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    )
+    fetch(`/api/getWeather?lat=${lat}&lon=${lon}`)
       .then((res) => res.json())
       .then((res) => {
         setUserWeatherData(res);
@@ -37,22 +29,17 @@ export default function UserLocationData({
   };
 
   const fetchAQI = (lat, lon) => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    )
+    fetch(`/api/getAqi?lat=${lat}&lon=${lon}`)
       .then((res) => res.json())
       .then((res) => setUserAqi(res));
   };
 
   const fetchUV = (lat, lon) => {
-    fetch(`https://api.openuv.io/api/v1/uv?lat=${lat}&lng=${lon}`, {
-      headers: {
-        "x-access-token": UV_API_KEY,
-      },
-    })
+    fetch(`/api/getUv?lat=${lat}&lon=${lon}`)
       .then((res) => res.json())
       .then((res) => setUserUV(res));
   };
+
   useEffect(() => getUserLocation(), []);
   useEffect(() => {
     if (userLocation[0] !== 0 && userLocation[1] !== 0) {
