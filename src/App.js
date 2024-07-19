@@ -44,6 +44,9 @@ export default function App() {
   const [latLon, setLatLon] = useState([0, 0]);
 
   const [bg, setBg] = useState("#");
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
   const videoRef = useRef(null);
   const fetchGeocodingData = () => {
     setLoading((prev) => ({ ...prev, inputLocation: true }));
@@ -276,15 +279,19 @@ export default function App() {
   // console.log(weatherData);
   // console.log(fiveDayForecast);
   // console.log(bulkWeatherData);
-  console.log(twentyfourHourForecast);
+  // console.log(twentyfourHourForecast);
   // console.log(aqi);
   // console.log(timeData);
   // console.log(news);
   // console.log(bg);
   return (
-    <div className="w-screen h-screen text-white overflow-hidden">
-      <Navbar />
-      <div className="z-10 w-full h-full flex overflow-y-auto overflow-x-hidden  bg-black bg-opacity-50">
+    <div className={`w-screen h-screen text-white overflow-hidden`}>
+      <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <div
+        className={`z-10 w-full h-full flex overflow-y-auto overflow-x-hidden  ${
+          isDarkMode ? "bg-black bg-opacity-60" : "bg-black bg-opacity-10"
+        } duration-1000`}
+      >
         <div ref={appRef} />
         <video
           ref={videoRef}

@@ -1,5 +1,7 @@
+import Input from "./Input";
 import Loader from "./Loader";
 import NoResults from "./NoResults";
+import SearchButton from "./SearchButton";
 
 export default function SearchPanel({
   cityName,
@@ -12,26 +14,16 @@ export default function SearchPanel({
 }) {
   return (
     <div className="flex flex-col w-1/4 h-full bg-common mx-2 py-4">
-      <span className="flex w-full h-8 px-2">
-        <input
-          type="text"
-          onChange={(e) => {
-            setCityName(e.target.value);
-            setCountryName("");
-
-            if (!e.target.value) {
-              locationSearchData.length = 0;
-            }
-          }}
-          className="text-white bg-transparent border border-slate-500 w-full h-auto ml-2 rounded-l-lg outline-none px-2"
-          placeholder="Enter city name"
+      <span className="flex w-full h-8 px-2 items-center justify-between">
+        <Input
+          setCityName={setCityName}
+          setCountryName={setCountryName}
+          locationSearchData={locationSearchData}
         />
-        <button
-          className="rounded-r-lg border mr-2 w-20"
-          onClick={cityName.length !== 0 ? fetchGeocodingData : null}
-        >
-          Fetch
-        </button>
+        <SearchButton
+          cityName={cityName}
+          fetchGeocodingData={fetchGeocodingData}
+        />
       </span>
       {loading ? (
         <div className="w-full h-full flex justify-center items-center">
