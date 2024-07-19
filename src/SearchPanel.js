@@ -14,7 +14,7 @@ export default function SearchPanel({
 }) {
   return (
     <div className="flex flex-col w-1/4 h-full bg-common mx-2 py-4">
-      <span className="flex w-full h-8 px-2 items-center justify-between">
+      <span className="flex w-full h-8 px-2 items-center justify-between mb-1">
         <Input
           setCityName={setCityName}
           setCountryName={setCountryName}
@@ -35,7 +35,7 @@ export default function SearchPanel({
             <>
               <button
                 key={index}
-                className=" min-h-12 hover:bg-white hover:bg-opacity-5 justify-between flex items-center px-2"
+                className=" min-h-12 hover:bg-white hover:bg-opacity-5 duration-200 ease-linear justify-between flex items-center px-2"
                 onClick={() => handleClickLocation(location)}
               >
                 <p className="text-sm xl:text-lg break-all w-1/2 text-start">
