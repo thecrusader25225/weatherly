@@ -10,11 +10,7 @@ import Navbar from "./Navbar";
 import UserLocationData from "./UserLocationData";
 
 export default function App() {
-  // const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY;
-  // const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
-  // const qWeather_API_KEY = process.env.REACT_APP_qWeather_API_KEY;
-  // const UV_API_KEY = process.env.REACT_APP_UV_API_KEY;
-
+  
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
   const [countryName, setCountryName] = useState("");
