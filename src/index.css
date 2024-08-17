@@ -49,3 +49,8 @@
     min-width: 800px;
     min-height: 900px;
   }
+  body, html {
+    overflow: hidden;
+    height: 100%;
+  }
+  
