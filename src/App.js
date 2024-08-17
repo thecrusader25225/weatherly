@@ -257,14 +257,14 @@ export default function App() {
     <div className={`w-screen h-screen text-white overflow-hidden`}>
       <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <div
-        className={`z-10 w-full h-full flex overflow-hidden  ${
+        className={`z-10 w-full h-full flex  ${
           isDarkMode ? "bg-black bg-opacity-60" : "bg-black bg-opacity-10"
         } duration-1000`}
       >
         <div ref={appRef} />
         <video
           ref={videoRef}
-          className="absolute top-0 left-0 w-screen h-screen object-cover -z-10 overflow-hidden"
+          className="absolute top-0 left-0 w-screen h-screen object-cover -z-10 "
           src={`/videos/${chooseBg()}.mp4`}
           autoPlay
           loop
