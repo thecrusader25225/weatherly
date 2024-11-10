@@ -254,7 +254,7 @@ export default function App() {
   // console.log(news);
   // console.log(bg);
   return (
-    <div className={`w-screen h-screen text-white overflow-hidden`}>
+    <div className={`w-screen h-screen text-white`}>
       <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <div
         className={`z-10 w-full h-full flex  ${
